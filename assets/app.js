@@ -17,6 +17,11 @@ $(document).ready(function() {
     })
 });
 
+window.addEventListener('DOMContentLoaded', event => {
+    const listHoursArray = document.body.querySelectorAll('.list-hours li');
+    listHoursArray[new Date().getDay()].classList.add(('today'));
+})
+
 console.log("JS cargado correctamente");
 
 // start the Stimulus application

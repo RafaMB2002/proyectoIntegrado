@@ -4,7 +4,7 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" style="max-width: 500px;">
-                <h1 class="display-5 mb-5">Listado de juegos</h1>
+                <h1 class="display-5 mb-5">Platos</h1>
             </div>
             <div class="row g-4">
                  {% for plato in platos %}
@@ -14,14 +14,19 @@
                             <div class="btn-square bg-light rounded-circle mx-auto mb-4"
                                 style="width: 64px; height: 64px;">
                                 {# ruta anterior:  "img/juegosDeMesa/"~ #}
-                                <img class="img-fluid" src={{plato.foto}} alt="Icon">
+                                {# <img class="img-fluid" src={{plato.foto}} alt="Icon"> #}
+                                <img class="img-fluid" src='https://www.pequerecetas.com/wp-content/uploads/2021/04/pollo-teriyaki-receta.jpg' alt="Icon">
                             </div>
-                            <h5 class="mb-3">{{plato.nombre}}</h4>
-                                <p class="mb-0">{{plato.id}}</p>
-                        </div>
-                        <div class="service-btn rounded-0 rounded-bottom">
-                            {# <a class="text-primary fw-medium" href="">Leer mas<i
-                                    class="bi bi-chevron-double-right ms-2"></i></a> #}
+                            <div class="text-center">
+                                <h3 class="mb-3">{{plato.nombre}}</h3>
+                            </div>
+                            <div class="text-start">
+                                <p class="mb-2">{{plato.descripcion}}</p>
+                                <h5 class="mb-2">{{plato.precio}}€</h5>
+                            </div>
+                            <div class="position-absolute bottom-0 end-0 m-3">
+                                <p class="mb-0">{{plato.tipo}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

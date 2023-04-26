@@ -54,16 +54,4 @@ class MainController extends AbstractController
         return $this->render('main/index.html.twig');
     }
 
-    #[Route('/listado', name: 'app_listado')]
-    public function listado(): Response
-    {
-        $platos = [
-            ['id' => 1, 'nombre' => 'pollo teriyaki', 'foto' => 'https://www.pequerecetas.com/wp-content/uploads/2021/04/pollo-teriyaki-receta.jpg'],
-            ['id' => 2, 'nombre' => 'costilla bbq', 'foto' => 'https://t2.uc.ltmcdn.com/es/posts/3/9/5/como_hacer_costillas_bbq_en_sarten_50593_600.jpg'],
-            ['id' => 3, 'nombre' => 'gambas al ajillo', 'foto' => 'https://i.blogs.es/eeeae0/gambas-al-ajillo/1366_2000.jpg']
-        ];
-        return $this->render('listado-platos-bebida/index.html.twig', [
-            'platos' => $platos,
-        ]);
-    }
 }
