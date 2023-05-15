@@ -35,6 +35,9 @@ class Bebida
     #[ORM\Column(type: Types::TEXT)]
     private ?string $Foto = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Bebida')]
+    private ?DetalleComanda $detalleComanda = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +123,18 @@ class Bebida
     public function setFoto(string $Foto): self
     {
         $this->Foto = $Foto;
+
+        return $this;
+    }
+
+    public function getDetalleComanda(): ?DetalleComanda
+    {
+        return $this->detalleComanda;
+    }
+
+    public function setDetalleComanda(?DetalleComanda $detalleComanda): self
+    {
+        $this->detalleComanda = $detalleComanda;
 
         return $this;
     }

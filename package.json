@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@popperjs/core": "^2.11.6",
-        "jquery": "^3.6.4"
+        "jquery": "^3.6.4",
+        "qrcode": "^1.5.3"
     }
 }

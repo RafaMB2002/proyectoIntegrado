@@ -32,6 +32,9 @@ class Plato
     #[ORM\Column(length: 255)]
     private ?string $Tipo = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Plato')]
+    private ?DetalleComanda $detalleComanda = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -105,6 +108,18 @@ class Plato
     public function setTipo(string $Tipo): self
     {
         $this->Tipo = $Tipo;
+
+        return $this;
+    }
+
+    public function getDetalleComanda(): ?DetalleComanda
+    {
+        return $this->detalleComanda;
+    }
+
+    public function setDetalleComanda(?DetalleComanda $detalleComanda): self
+    {
+        $this->detalleComanda = $detalleComanda;
 
         return $this;
     }

@@ -6,10 +6,10 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.scss';
-import $ from 'jquery';
+/* import './styles/app.scss'; */
+/* import $ from 'jquery'; */
 //const $ = require('./jquery-3.6.4');
-require('./bootstrap');
+/* require('../../assets/bootstrap'); */
 
 $(document).ready(function() {
     $("#btnPrueba").click(function(){
@@ -23,6 +23,15 @@ window.addEventListener('DOMContentLoaded', event => {
 })
 
 console.log("JS cargado correctamente");
+
+var qrcode = new QRCode(document.getElementById("codigo-qr"), {
+    text: "www.twitch.tv/ramplayer13",
+    width: 128,
+    height: 128,
+    colorDark : "#000000",
+    colorLight : "#ffffff",
+    correctLevel : QRCode.CorrectLevel.H
+  });
 
 // start the Stimulus application
 //import './bootstrap';
