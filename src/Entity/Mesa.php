@@ -15,12 +15,12 @@ class Mesa
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\OneToMany(mappedBy: 'Mesa', targetEntity: DetalleComanda::class)]
-    private Collection $detalleComandas;
+    #[ORM\OneToMany(mappedBy: 'Mesa', targetEntity: Comanda::class)]
+    private Collection $comandas;
 
     public function __construct()
     {
-        $this->detalleComandas = new ArrayCollection();
+        $this->comandas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -29,29 +29,29 @@ class Mesa
     }
 
     /**
-     * @return Collection<int, DetalleComanda>
+     * @return Collection<int, Comanda>
      */
-    public function getDetalleComandas(): Collection
+    public function getComandas(): Collection
     {
-        return $this->detalleComandas;
+        return $this->comandas;
     }
 
-    public function addDetalleComanda(DetalleComanda $detalleComanda): self
+    public function addComanda(Comanda $comanda): self
     {
-        if (!$this->detalleComandas->contains($detalleComanda)) {
-            $this->detalleComandas->add($detalleComanda);
-            $detalleComanda->setMesa($this);
+        if (!$this->comandas->contains($comanda)) {
+            $this->comandas->add($comanda);
+            $comanda->setMesa($this);
         }
 
         return $this;
     }
 
-    public function removeDetalleComanda(DetalleComanda $detalleComanda): self
+    public function removeComanda(Comanda $comanda): self
     {
-        if ($this->detalleComandas->removeElement($detalleComanda)) {
+        if ($this->comandas->removeElement($comanda)) {
             // set the owning side to null (unless already changed)
-            if ($detalleComanda->getMesa() === $this) {
-                $detalleComanda->setMesa(null);
+            if ($comanda->getMesa() === $this) {
+                $comanda->setMesa(null);
             }
         }
 

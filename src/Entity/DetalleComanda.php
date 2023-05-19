@@ -15,23 +15,14 @@ class DetalleComanda
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?float $precioTotal = null;
-
     #[ORM\ManyToOne(inversedBy: 'DetalleComanda')]
     private ?Comanda $comanda = null;
-
-    #[ORM\ManyToOne(inversedBy: 'detalleComandas')]
-    private ?Mesa $Mesa = null;
 
     #[ORM\OneToMany(mappedBy: 'detalleComanda', targetEntity: Plato::class)]
     private Collection $Plato;
 
     #[ORM\OneToMany(mappedBy: 'detalleComanda', targetEntity: Bebida::class)]
     private Collection $Bebida;
-
-    #[ORM\ManyToOne(inversedBy: 'detalleComandas')]
-    private ?Trabajador $Trabajador = null;
 
     public function __construct()
     {
@@ -44,18 +35,6 @@ class DetalleComanda
         return $this->id;
     }
 
-    public function getPrecioTotal(): ?float
-    {
-        return $this->precioTotal;
-    }
-
-    public function setPrecioTotal(?float $precioTotal): self
-    {
-        $this->precioTotal = $precioTotal;
-
-        return $this;
-    }
-
     public function getComanda(): ?Comanda
     {
         return $this->comanda;
@@ -64,18 +43,6 @@ class DetalleComanda
     public function setComanda(?Comanda $comanda): self
     {
         $this->comanda = $comanda;
-
-        return $this;
-    }
-
-    public function getMesa(): ?Mesa
-    {
-        return $this->Mesa;
-    }
-
-    public function setMesa(?Mesa $Mesa): self
-    {
-        $this->Mesa = $Mesa;
 
         return $this;
     }
@@ -136,18 +103,6 @@ class DetalleComanda
                 $bebida->setDetalleComanda(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getTrabajador(): ?Trabajador
-    {
-        return $this->Trabajador;
-    }
-
-    public function setTrabajador(?Trabajador $Trabajador): self
-    {
-        $this->Trabajador = $Trabajador;
 
         return $this;
     }

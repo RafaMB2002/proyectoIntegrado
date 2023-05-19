@@ -21905,7 +21905,7 @@ textarea.form-control-lg {
   }
 }
 body {
-  background-image: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url("/public/img/bg.jpg");
+  background-image: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url("images/bg.jpg");
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
@@ -22114,4 +22114,48 @@ p {
 }
 .address strong {
   font-size: 1.2rem;
+}
+
+.containerQR {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+  background-color: #776862;
+  border-radius: 5px;
+}
+.containerQR h1, .containerQR .h1 {
+  color: #e6a756;
+}
+.containerQR label {
+  display: block;
+  margin-bottom: 10px;
+  color: #e0ccb4;
+}
+.containerQR input[type=text] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #e0ccb4;
+  border-radius: 3px;
+  color: #e0ccb4;
+  background-color: #776862;
+}
+.containerQR button {
+  padding: 10px 20px;
+  background-color: #e0ccb4;
+  color: #776862;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.containerQR button#imprimir-qr {
+  margin-top: 20px;
+  display: none;
+}
+.containerQR #codigoQR {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }/*# sourceMappingURL=app.css.map */

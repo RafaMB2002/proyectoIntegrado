@@ -25,6 +25,15 @@ class Comanda
     #[ORM\OneToMany(mappedBy: 'comanda', targetEntity: DetalleComanda::class)]
     private Collection $DetalleComanda;
 
+    #[ORM\ManyToOne(inversedBy: 'comandas')]
+    private ?Mesa $Mesa = null;
+
+    #[ORM\ManyToOne(inversedBy: 'comandas')]
+    private ?Trabajador $Trabajador = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $Precio_total = null;
+
     public function __construct()
     {
         $this->DetalleComanda = new ArrayCollection();
@@ -85,6 +94,42 @@ class Comanda
                 $detalleComanda->setComanda(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMesa(): ?Mesa
+    {
+        return $this->Mesa;
+    }
+
+    public function setMesa(?Mesa $Mesa): self
+    {
+        $this->Mesa = $Mesa;
+
+        return $this;
+    }
+
+    public function getTrabajador(): ?Trabajador
+    {
+        return $this->Trabajador;
+    }
+
+    public function setTrabajador(?Trabajador $Trabajador): self
+    {
+        $this->Trabajador = $Trabajador;
+
+        return $this;
+    }
+
+    public function getPrecioTotal(): ?float
+    {
+        return $this->Precio_total;
+    }
+
+    public function setPrecioTotal(?float $Precio_total): self
+    {
+        $this->Precio_total = $Precio_total;
 
         return $this;
     }

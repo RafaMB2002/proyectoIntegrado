@@ -27,13 +27,13 @@ class Trabajador
     #[ORM\OneToMany(mappedBy: 'Trabajador', targetEntity: Presencia::class)]
     private Collection $presencias;
 
-    #[ORM\OneToMany(mappedBy: 'Trabajador', targetEntity: DetalleComanda::class)]
-    private Collection $detalleComandas;
+    #[ORM\OneToMany(mappedBy: 'Trabajador', targetEntity: Comanda::class)]
+    private Collection $comandas;
 
     public function __construct()
     {
         $this->presencias = new ArrayCollection();
-        $this->detalleComandas = new ArrayCollection();
+        $this->comandas = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,29 +108,29 @@ class Trabajador
     }
 
     /**
-     * @return Collection<int, DetalleComanda>
+     * @return Collection<int, Comanda>
      */
-    public function getDetalleComandas(): Collection
+    public function getComandas(): Collection
     {
-        return $this->detalleComandas;
+        return $this->comandas;
     }
 
-    public function addDetalleComanda(DetalleComanda $detalleComanda): self
+    public function addComanda(Comanda $comanda): self
     {
-        if (!$this->detalleComandas->contains($detalleComanda)) {
-            $this->detalleComandas->add($detalleComanda);
-            $detalleComanda->setTrabajador($this);
+        if (!$this->comandas->contains($comanda)) {
+            $this->comandas->add($comanda);
+            $comanda->setTrabajador($this);
         }
 
         return $this;
     }
 
-    public function removeDetalleComanda(DetalleComanda $detalleComanda): self
+    public function removeComanda(Comanda $comanda): self
     {
-        if ($this->detalleComandas->removeElement($detalleComanda)) {
+        if ($this->comandas->removeElement($comanda)) {
             // set the owning side to null (unless already changed)
-            if ($detalleComanda->getTrabajador() === $this) {
-                $detalleComanda->setTrabajador(null);
+            if ($comanda->getTrabajador() === $this) {
+                $comanda->setTrabajador(null);
             }
         }
 
