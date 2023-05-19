@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    pedidos
+{% endblock %}
+
+{% block body %}
+
+
+<div class="containerPedidos">
+
+    <!-- Icono carrito de compra y navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <a class="navbar-brand" href="#">Carta Bar Piscina la Calle Nueva</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#" id="carrito-modal-ya">
+          <i class="fas fa-shopping-cart fa-lg"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+  <div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2 style="color: #e0ccb4;">Platos</h2>
+      <ul class="list-group">
+        {% for plato in platos %}
+          <li class="list-group-item">
+            {{ plato.nombre }} - Precio: {{ plato.precio }}€
+            <button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
+              <i class="fas fa-plus"></i>
+            </button>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h2 style="color: #e0ccb4;">Bebidas</h2>
+      <ul class="list-group">
+        {% for bebida in bebidas %}
+          <li class="list-group-item">
+            {{ bebida.nombre }} - Precio: {{ bebida.precio }}€
+            <button class="btn btn-primary btn-agregar-bebida" data-id="{{ bebida.id }}" data-nombre="{{ bebida.nombre }}" data-precio="{{ bebida.precio }}">
+              <i class="fas fa-plus"></i>
+            </button>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="carritoModal" tabindex="-1" role="dialog" aria-labelledby="carritoModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="carritoModalLabel">Carrito de compra</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul class="list-group carrito-lista">
+          <!-- Los elementos del carrito se agregarán dinámicamente con jQuery -->
+        </ul>
+        <div class="total-precio">Total: <span id="totalPrecio">0</span>€</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="pedir">Comprar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+{% endblock %}

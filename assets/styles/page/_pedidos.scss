@@ -1,51 +1,102 @@
-.containerQR {
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
-    padding: 20px;
-    background-color: #776862;
-    border-radius: 5px;
-
-    h1 {
-        color: #e6a756;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 10px;
-        color: #e0ccb4;
-    }
-
-    input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #e0ccb4;
-        border-radius: 3px;
-        color: #e0ccb4;
+.containerPedidos {
+    body {
         background-color: #776862;
     }
 
-    button {
-        padding: 10px 20px;
-        background-color: #e0ccb4;
-        color: #776862;
-        border: none;
-        border-radius: 3px;
-        cursor: pointer;
+    h2 {
+        color: #e6a756;
+    }
 
-        &#imprimir-qr{
-            margin-top: 20px;
-            display: none;
+    .carrito-icono {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        font-size: 24px;
+        color: #e0ccb4;
+        cursor: pointer;
+    }
+
+    .carrito-modal .modal-dialog {
+        max-width: 500px;
+    }
+
+    .carrito-modal .modal-content {
+        background-color: #e0ccb4;
+    }
+
+    .carrito-modal .modal-header {
+        border-bottom: none;
+    }
+
+    .carrito-modal .modal-title {
+        color: #776862;
+    }
+
+    .carrito-modal .modal-body {
+        padding: 20px;
+    }
+
+    .carrito-modal .modal-footer {
+        border-top: none;
+    }
+
+    .carrito-item {
+        margin-bottom: 10px;
+    }
+
+    .carrito-item .btn {
+        margin-left: 10px;
+    }
+
+    // Variables
+    $modal-bg-color: rgba(0, 0, 0, 0.5);
+    $modal-content-bg-color: #fff;
+    $modal-content-padding: 20px;
+
+    // Estilo del modal
+    #cart-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: $modal-bg-color;
+        z-index: 9999;
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: $modal-content-bg-color;
+            padding: $modal-content-padding;
+            // Agrega otros estilos según tus necesidades
         }
     }
 
-    
+    //navBar
 
-    #codigoQR {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .navbar-nav {
+        margin-left: auto;
+    }
+
+    .nav-item {
+        margin-left: 10px;
+    }
+
+    .navbar {
+        background-color: #361f18;
+    }
+
+    nav {
+        a {
+                margin-left: 30px;
+                font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                font-size: 1.5rem;
+                font-weight: 750;
+                color: rgba(255, 255, 255, 0.7);
+
+        }
     }
 }
