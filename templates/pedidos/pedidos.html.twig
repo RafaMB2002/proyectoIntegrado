@@ -11,7 +11,7 @@
 
     <!-- Icono carrito de compra y navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark">
-  <a class="navbar-brand" href="#">Carta Bar Piscina la Calle Nueva</a>
+  <a class="navbar-brand" href="{{path('homepage')}}">Carta Bar Piscina la Calle Nueva</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -25,22 +25,139 @@
     </ul>
   </div>
 </nav>
-
+{# LISTADO DE PLATOS Y BEBIDAS #}
   <div class="container">
   <div class="row">
+  {# PLATOS #}
     <div class="col-md-6">
-      <h2 style="color: #e0ccb4;">Platos</h2>
+    {# PICAR #}
+      <h2 style="color: #e0ccb4;">Para picar</h2>
       <ul class="list-group">
         {% for plato in platos %}
-          <li class="list-group-item">
+          {% if plato.tipo == 'Picar' %}
+            <li class="list-group-item">
             {{ plato.nombre }} - Precio: {{ plato.precio }}€
             <button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
               <i class="fas fa-plus"></i>
             </button>
           </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {# PESCADO Y MARICO #}
+      <h2 style="color: #e0ccb4;">Pescados y Mariscos</h2>
+      <ul class="list-group">
+        {% for plato in platos %}
+          {% if plato.tipo == 'Pescado-Marisco' %}
+            <li class="list-group-item">
+            {{ plato.nombre }} - Precio: {{ plato.precio }}€
+            <button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
+              <i class="fas fa-plus"></i>
+            </button>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {# CARNE #}
+      <h2 style="color: #e0ccb4;">Carnes</h2>
+      <ul class="list-group">
+        {% for plato in platos %}
+          {% if plato.tipo == 'Carne' %}
+            <li class="list-group-item">
+            {{ plato.nombre }} - Precio: {{ plato.precio }}€
+            <button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
+              <i class="fas fa-plus"></i>
+            </button>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {# BAGUETTE Y ALPARGATA #}
+      <h2 style="color: #e0ccb4;">Baguettes y Alpargatas</h2>
+      <ul class="list-group">
+        {% for plato in platos %}
+          {% if plato.tipo == 'Baguette-Alpargata' %}
+            <li class="list-group-item">
+            {{ plato.nombre }} - Precio: {{ plato.precio }}€
+            <button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
+              <i class="fas fa-plus"></i>
+            </button>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {# ROSCAS #}
+      <h2 style="color: #e0ccb4;">Roscas</h2>
+      <ul class="list-group">
+        {% for plato in platos %}
+          {% if plato.tipo == 'Rosca' %}
+            <li class="list-group-item">
+            {{ plato.nombre }} - Precio: {{ plato.precio }}€
+            <button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
+              <i class="fas fa-plus"></i>
+            </button>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {# HABURGUESA #}
+      <h2 style="color: #e0ccb4;">Hamburguesas</h2>
+      <ul class="list-group">
+        {% for plato in platos %}
+          {% if plato.tipo == 'Hamburguesa' %}
+            <li class="list-group-item">
+            {{ plato.nombre }} - Precio: {{ plato.precio }}€
+            <button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
+              <i class="fas fa-plus"></i>
+            </button>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {# SANDWICH #}
+      <h2 style="color: #e0ccb4;">Sandwiches</h2>
+      <ul class="list-group">
+        {% for plato in platos %}
+          {% if plato.tipo == 'Sandwich' %}
+            <li class="list-group-item">
+            {{ plato.nombre }} - Precio: {{ plato.precio }}€
+            <button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
+              <i class="fas fa-plus"></i>
+            </button>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {# PEQUES #}
+      <h2 style="color: #e0ccb4;">Para los peques</h2>
+      <ul class="list-group">
+        {% for plato in platos %}
+          {% if plato.tipo == 'Peques' %}
+            <li class="list-group-item">
+            {{ plato.nombre }} - Precio: {{ plato.precio }}€
+            <button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
+              <i class="fas fa-plus"></i>
+            </button>
+          </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+      {# POSTRE #}
+      <h2 style="color: #e0ccb4;">Postres</h2>
+      <ul class="list-group">
+        {% for plato in platos %}
+          {% if plato.tipo == 'Postre' %}
+            <li class="list-group-item">
+            {{ plato.nombre }} - Precio: {{ plato.precio }}€
+            <button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
+              <i class="fas fa-plus"></i>
+            </button>
+          </li>
+          {% endif %}
         {% endfor %}
       </ul>
     </div>
+    {# BEBIDAS #}
     <div class="col-md-6">
       <h2 style="color: #e0ccb4;">Bebidas</h2>
       <ul class="list-group">
@@ -79,6 +196,9 @@
     </div>
   </div>
 </div>
+
+</div>
+
 
 </div>
 
