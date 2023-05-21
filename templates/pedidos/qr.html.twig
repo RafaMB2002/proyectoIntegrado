@@ -1,19 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bar Piscina, La Calle Nueva{% endblock %}
+{% block title %}Bar Piscina, La Calle Nueva
+{% endblock %}
 
 {% block body %}
-{# <button id="botonGenerar">Generar QR</button>
-<div id="codigoQR">
+	{# <button id="botonGenerar">Generar QR</button>
+	<div id="codigoQR">
+	
+	</div> #}
 
-</div> #}
-
-<div class="containerQR">
-    <h1>Bar Piscina, La Calle Nueva</h1>
-    <label for="numero-mesa">Número de Mesa:</label>
-    <input type="text" id="numero-mesa">
-    <button id="botonGenerar">Generar QR</button>
-    <div id="codigoQR"></div>
-    <button id="imprimir-qr">Imprimir</button>
-  </div>
+	<div class="containerQR">
+		<h1>Bar Piscina, La Calle Nueva</h1>
+		<label for="numero-mesa">Número de Mesa:</label>
+		<input type="text" id="numero-mesa">
+		<button id="botonGenerar">Generar QR</button>
+    <div id="mensajeError"></div>
+		<div id="codigoQR"></div>
+		<button id="imprimir-qr">Imprimir</button>
+	</div>
 {% endblock %}

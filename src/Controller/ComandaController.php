@@ -18,8 +18,39 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ComandaController extends AbstractController
 {
+
+    private $comandaRepository;
+    private $mesaRepository;
+
+    public function __construct(ComandaRepository $comandaRepository, MesaRepository $mesaRepository)
+    {
+        $this->comandaRepository = $comandaRepository;
+        $this->mesaRepository = $mesaRepository;
+    }
+
+    public function comandaExist($fechaHoraInicio, $idMesa)
+    {
+        $bool = true;
+
+        $comandaExistente = $this->comandaRepository->createQueryBuilder('c')
+            ->join('c.Mesa', 'm')
+            ->where('m.id = :mesaId')
+            ->andWhere('c.FechaHoraFin IS NULL')
+            ->setParameter('mesaId', $idMesa)
+            ->getQuery()
+            ->getResult();
+
+        //dd($comandaExistente);
+
+        if (empty($comandaExistente)) {
+            $bool = false;
+        }
+
+        return $bool;
+    }
+
     #[Route('/comandas', name: 'new_comanda', methods: 'POST')]
-    public function crearComanda(Request $request, EntityManagerInterface $entityManager, MesaRepository $mesaRepository, TrabajadorRepository $trabajadorRepository): JsonResponse
+    public function crearComanda(Request $request, EntityManagerInterface $entityManager, TrabajadorRepository $trabajadorRepository): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
 
@@ -29,17 +60,21 @@ class ComandaController extends AbstractController
 
         $hora_actual = DateTime::createFromFormat('d-m-Y H:i:s', date('d-m-Y H:i:s'));
 
-        $comanda->setFechaHoraInicio($hora_actual)
-            ->setMesa($mesaRepository->find($idMesa))
-            ->setTrabajador($trabajadorRepository->find($idTrabajador));
+        if ($this->comandaExist($hora_actual, $idMesa)) {
+            return $this->json(['ocupado' => 1]);
+        } else {
+            $comanda->setFechaHoraInicio($hora_actual)
+                ->setMesa($this->mesaRepository->find($idMesa))
+                ->setTrabajador($trabajadorRepository->find($idTrabajador));
 
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($comanda);
+            // tell Doctrine you want to (eventually) save the Product (no queries yet)
+            $entityManager->persist($comanda);
 
-        // actually executes the queries (i.e. the INSERT query)
-        $entityManager->flush();
+            // actually executes the queries (i.e. the INSERT query)
+            $entityManager->flush();
 
-        return $this->json(['message' => 'Comanda creada', 'id' => $comanda->getId()]);
+            return $this->json(['ocupado' => 0, 'message' => 'Comanda creada', 'id' => $comanda->getId()]);
+        }
     }
 
     #[Route('/comandas', name: 'get_all_comandas', methods: 'GET')]
