@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Cancelar comanda
+{% endblock %}
+
+{% block body %}
+	<!-- list.html.twig -->
+	<div class="container">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Mesa</th>
+					<th>Fecha de inicio</th>
+					<th>Fecha de finalización</th>
+					<th>Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for comanda in comandas %}
+					<tr>
+						<td>{{ comanda.id }}</td>
+						<td>{{ comanda.mesa.getId }}</td>
+						<td>{{ comanda.fechaHoraInicio|date('Y-m-d H:i:s') }}</td>
+						<td>
+							{% if comanda.fechaHoraFin is null %}
+								<span id="fecha-hora-fin-{{ comanda.id }}">Pendiente</span>
+							{% else %}
+								{{ comanda.fechaHoraFin|date('Y-m-d H:i:s') }}
+							{% endif %}
+						</td>
+						<td>
+							{% if comanda.fechaHoraFin is null %}
+								<button class="btn btn-primary finalizar-comanda" data-comanda-id="{{ comanda.id }}">Finalizar</button>
+							{% else %}
+								Finalizada
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

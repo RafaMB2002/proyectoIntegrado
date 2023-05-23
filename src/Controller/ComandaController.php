@@ -73,7 +73,7 @@ class ComandaController extends AbstractController
             // actually executes the queries (i.e. the INSERT query)
             $entityManager->flush();
 
-            return $this->json(['ocupado' => 0, 'message' => 'Comanda creada', 'id' => $comanda->getId()]);
+            return $this->json(['ocupado' => 0, 'message' => 'Comanda creada', 'id' => $comanda->getId(), 'mesaId' => $comanda->getMesa()->getId()]);
         }
     }
 
@@ -116,5 +116,30 @@ class ComandaController extends AbstractController
         ];
 
         return $this->json($data);
+    }
+
+    #[Route('/comandas/{id}', name: 'finalizar_comanda_by_id', methods: 'PATCH')]
+    public function finalizarComandaPorId(Request $request, EntityManagerInterface $entityManager, ComandaRepository $comandaRepository, $id): JsonResponse
+    {
+        $comanda = $comandaRepository->find($id);
+
+        if (!$comanda) {
+            return $this->json(['error' => 'Comanda no encontrado'], 404);
+        }
+
+        $data = json_decode($request->getContent(), true);
+
+        // Actualizar solo los campos proporcionados en la solicitud PATCH
+        if (isset($data['fechaHoraFin'])) {
+            $comanda->setFechaHoraFin(new DateTime($data['fechaHoraFin']));
+
+            // Persistir los cambios en la base de datos
+            $entityManager->flush();
+
+            // Devolver la respuesta
+            return $this->json(['message' => 'Comanda finalizada correctamente'], 200);
+        } else {
+            return $this->json(['error' => 'No se pudo actualizar'], 500);
+        }
     }
 }

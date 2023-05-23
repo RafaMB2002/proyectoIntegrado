@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\BebidaRepository;
+use App\Repository\ComandaRepository;
 use App\Repository\PlatoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,17 @@ class PedidosController extends AbstractController
             'controller_name' => 'PedidosController',
             'platos' => $platos,
             'bebidas' => $bebidas
+        ]);
+    }
+
+    #[Route('/finalizarComanda', name: 'finalizarComanda')]
+    public function finalizarComanda(ComandaRepository $comandaRepository): Response
+    {
+        $comandas = $comandaRepository->findAll();
+
+        return $this->render('pedidos/finalizarComanda.html.twig', [
+            'controller_name' => 'PedidosController',
+            'comandas' => $comandas
         ]);
     }
 }
