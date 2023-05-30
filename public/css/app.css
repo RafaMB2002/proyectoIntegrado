@@ -22160,75 +22160,89 @@ p {
   align-items: center;
 }
 
-.containerPedidos body {
-  background-color: #776862;
+.container-pedidos body {
+  font-family: "Lora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  color: #361f18;
 }
-.containerPedidos h2, .containerPedidos .h2 {
+.container-pedidos h1, .container-pedidos .h1 {
+  font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 2rem;
+  font-weight: 800;
   color: #e6a756;
 }
-.containerPedidos .carrito-icono {
+.container-pedidos .section-title {
+  margin-top: 20px;
+}
+.container-pedidos .add-to-cart-btn {
+  background-color: #e6a756;
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+.container-pedidos .add-to-cart-btn:hover {
+  background-color: #dba158;
+}
+.container-pedidos .cart-btn {
+  background-color: #e6a756;
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.container-pedidos .cart-btn:hover {
+  background-color: #dba158;
+}
+.container-pedidos #cart-icon {
   position: fixed;
   top: 20px;
   right: 20px;
   font-size: 24px;
-  color: #e0ccb4;
+  color: #e6a756;
   cursor: pointer;
 }
-.containerPedidos .carrito-modal .modal-dialog {
+.container-pedidos #cart-modal .modal-dialog {
   max-width: 500px;
 }
-.containerPedidos .carrito-modal .modal-content {
-  background-color: #e0ccb4;
-}
-.containerPedidos .carrito-modal .modal-header {
-  border-bottom: none;
-}
-.containerPedidos .carrito-modal .modal-title {
-  color: #776862;
-}
-.containerPedidos .carrito-modal .modal-body {
+.container-pedidos #cart-modal .modal-content {
   padding: 20px;
 }
-.containerPedidos .carrito-modal .modal-footer {
-  border-top: none;
+.container-pedidos #cart-modal .modal-content h5, .container-pedidos #cart-modal .modal-content .h5 {
+  text-decoration: underline;
 }
-.containerPedidos .carrito-item {
+.container-pedidos #cart-modal .modal-body {
+  max-height: 400px;
+  overflow-y: auto;
+}
+.container-pedidos #cart-modal .item {
   margin-bottom: 10px;
 }
-.containerPedidos .carrito-item .btn {
+.container-pedidos #cart-modal .item .name {
+  font-weight: 600;
+}
+.container-pedidos #cart-modal .item .price {
+  font-size: 0.9rem;
+  color: #666666;
+}
+.container-pedidos #cart-modal .item .quantity {
+  font-size: 0.9rem;
+  color: #666666;
   margin-left: 10px;
 }
-.containerPedidos #cart-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 9999;
+.container-pedidos #cart-modal .total-price {
+  font-weight: 600;
 }
-.containerPedidos #cart-modal .modal-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  padding: 20px;
+.container-pedidos .modal-footer {
+  display: flex;
+  justify-content: space-between;
 }
-.containerPedidos .navbar-nav {
-  margin-left: auto;
+.container-pedidos .modal-footer .footer-left {
+  text-align: left;
 }
-.containerPedidos .nav-item {
-  margin-left: 10px;
-}
-.containerPedidos .navbar {
-  background-color: #361f18;
-}
-.containerPedidos nav a {
-  margin-left: 30px;
-  font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  font-size: 1.5rem;
-  font-weight: 750;
-  color: rgba(255, 255, 255, 0.7);
+.container-pedidos .modal-footer .footer-right {
+  text-align: right;
 }/*# sourceMappingURL=app.css.map */

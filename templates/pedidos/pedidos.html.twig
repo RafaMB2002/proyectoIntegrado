@@ -1,227 +1,81 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	pedidos
+	Carta Bar Piscina la Calle Nueva
 {% endblock %}
 
 {% block body %}
-
-
-	<div
-		class="containerPedidos">
-
-		<!-- Icono carrito de compra y navbar -->
-		<nav class="navbar navbar-expand-lg navbar-dark">
-			<a class="navbar-brand" href="{{path('homepage')}}">Carta Bar Piscina la Calle Nueva</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link" href="#" id="carrito-modal-ya">
-							<i class="fas fa-shopping-cart fa-lg"></i>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</nav>
-		{# LISTADO DE PLATOS Y BEBIDAS #}
+	<div class="container-pedidos">
 		<div class="container">
-			<div
-				class="row">
-				{# PLATOS #}
-				<div
-					class="col-md-6">
-					{# PICAR #}
-					<h2 style="color: #e0ccb4;">Para picar</h2>
-					<ul class="list-group">
-						{% for plato in platos %}
-							{% if plato.tipo == 'Picar' %}
-								<li class="list-group-item">
-									{{ plato.nombre }}
-									- Precio:
-									{{ plato.precio }}€
-									<button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
-										<i class="fas fa-plus"></i>
-									</button>
-								</li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-					{# PESCADO Y MARICO #}
-					<h2 style="color: #e0ccb4;">Pescados y Mariscos</h2>
-					<ul class="list-group">
-						{% for plato in platos %}
-							{% if plato.tipo == 'Pescado-Marisco' %}
-								<li class="list-group-item">
-									{{ plato.nombre }}
-									- Precio:
-									{{ plato.precio }}€
-									<button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
-										<i class="fas fa-plus"></i>
-									</button>
-								</li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-					{# CARNE #}
-					<h2 style="color: #e0ccb4;">Carnes</h2>
-					<ul class="list-group">
-						{% for plato in platos %}
-							{% if plato.tipo == 'Carne' %}
-								<li class="list-group-item">
-									{{ plato.nombre }}
-									- Precio:
-									{{ plato.precio }}€
-									<button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
-										<i class="fas fa-plus"></i>
-									</button>
-								</li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-					{# BAGUETTE Y ALPARGATA #}
-					<h2 style="color: #e0ccb4;">Baguettes y Alpargatas</h2>
-					<ul class="list-group">
-						{% for plato in platos %}
-							{% if plato.tipo == 'Baguette-Alpargata' %}
-								<li class="list-group-item">
-									{{ plato.nombre }}
-									- Precio:
-									{{ plato.precio }}€
-									<button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
-										<i class="fas fa-plus"></i>
-									</button>
-								</li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-					{# ROSCAS #}
-					<h2 style="color: #e0ccb4;">Roscas</h2>
-					<ul class="list-group">
-						{% for plato in platos %}
-							{% if plato.tipo == 'Rosca' %}
-								<li class="list-group-item">
-									{{ plato.nombre }}
-									- Precio:
-									{{ plato.precio }}€
-									<button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
-										<i class="fas fa-plus"></i>
-									</button>
-								</li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-					{# HABURGUESA #}
-					<h2 style="color: #e0ccb4;">Hamburguesas</h2>
-					<ul class="list-group">
-						{% for plato in platos %}
-							{% if plato.tipo == 'Hamburguesa' %}
-								<li class="list-group-item">
-									{{ plato.nombre }}
-									- Precio:
-									{{ plato.precio }}€
-									<button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
-										<i class="fas fa-plus"></i>
-									</button>
-								</li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-					{# SANDWICH #}
-					<h2 style="color: #e0ccb4;">Sandwiches</h2>
-					<ul class="list-group">
-						{% for plato in platos %}
-							{% if plato.tipo == 'Sandwich' %}
-								<li class="list-group-item">
-									{{ plato.nombre }}
-									- Precio:
-									{{ plato.precio }}€
-									<button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
-										<i class="fas fa-plus"></i>
-									</button>
-								</li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-					{# PEQUES #}
-					<h2 style="color: #e0ccb4;">Para los peques</h2>
-					<ul class="list-group">
-						{% for plato in platos %}
-							{% if plato.tipo == 'Peques' %}
-								<li class="list-group-item">
-									{{ plato.nombre }}
-									- Precio:
-									{{ plato.precio }}€
-									<button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
-										<i class="fas fa-plus"></i>
-									</button>
-								</li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-					{# POSTRE #}
-					<h2 style="color: #e0ccb4;">Postres</h2>
-					<ul class="list-group">
-						{% for plato in platos %}
-							{% if plato.tipo == 'Postre' %}
-								<li class="list-group-item">
-									{{ plato.nombre }}
-									- Precio:
-									{{ plato.precio }}€
-									<button class="btn btn-primary btn-agregar-plato" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">
-										<i class="fas fa-plus"></i>
-									</button>
-								</li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-				</div>
-				{# BEBIDAS #}
-				<div class="col-md-6">
-					<h2 style="color: #e0ccb4;">Bebidas</h2>
-					<ul class="list-group">
-						{% for bebida in bebidas %}
-							<li class="list-group-item">
-								{{ bebida.nombre }}
-								- Precio:
-								{{ bebida.precio }}€
-								<button class="btn btn-primary btn-agregar-bebida" data-id="{{ bebida.id }}" data-nombre="{{ bebida.nombre }}" data-precio="{{ bebida.precio }}">
-									<i class="fas fa-plus"></i>
-								</button>
-							</li>
-						{% endfor %}
-					</ul>
+			<h1>Carta Bar Piscina la Calle Nueva</h1>
+
+			<div class="section-title">
+				<h2>Para picar</h2>
+				<div class="row">
+					{% for plato in platos %}
+						{% if plato.tipo == "Picar" %}
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h5 class="card-title">{{ plato.nombre }}</h5>
+										<p class="card-text">Precio:
+											{{ plato.precio }}</p>
+										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
 				</div>
 			</div>
-		</div>
 
-		<div class="modal fade" id="carritoModal" tabindex="-1" role="dialog" aria-labelledby="carritoModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="carritoModalLabel">Carrito de compra</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<ul
-							class="list-group carrito-lista"><!-- Los elementos del carrito se agregarán dinámicamente con jQuery -->
-						</ul>
-						<div class="total-precio">Total:
-							<span id="totalPrecio">0</span>€</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-						<button type="button" class="btn btn-primary" id="pedir">Pedir</button>
+			<!-- Repite la estructura para cada tipo de plato -->
+
+			<div class="section-title">
+				<h2>Bebidas</h2>
+				<div class="row">
+					{% for bebida in bebidas %}
+						<div class="col-md-4">
+							<div class="card">
+								<div class="card-body">
+									<h5 class="card-title">{{ bebida.nombre }}</h5>
+									<p class="card-text">Precio:
+										{{ bebida.precio }}</p>
+									<button class="btn btn-primary add-to-cart-btn" data-id="{{ bebida.id }}" data-nombre="{{ bebida.nombre }}" data-precio="{{ bebida.precio }}">+</button>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+
+			<div id="cart-icon">
+				<i class="fa fa-shopping-cart"></i>
+			</div>
+
+			<div id="cart-modal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Carrito de la compra</h4>
+							<button class="btn btn-primary" type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div id="cart-items"></div>
+						</div>
+						<div class="modal-footer">
+							<div class="footer-left">
+								<div id="cart-total" class="total-price"></div>
+							</div>
+							<div class="footer-right">
+								<button type="button" class="btn btn-primary" id="btn-comprar">Realizar pedido</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</div>
-
-
-</div>{% endblock %}
+{% endblock %}

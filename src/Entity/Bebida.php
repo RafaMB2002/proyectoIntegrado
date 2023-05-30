@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\BebidaRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -35,8 +37,13 @@ class Bebida
     #[ORM\Column(type: Types::TEXT)]
     private ?string $Foto = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Bebida')]
-    private ?DetalleComanda $detalleComanda = null;
+    #[ORM\OneToMany(mappedBy: 'bebida', targetEntity: DetalleComandaBebida::class)]
+    private Collection $DetalleComandaBebida;
+
+    public function __construct()
+    {
+        $this->DetalleComandaBebida = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -127,14 +134,32 @@ class Bebida
         return $this;
     }
 
-    public function getDetalleComanda(): ?DetalleComanda
+    /**
+     * @return Collection<int, DetalleComandaBebida>
+     */
+    public function getDetalleComandaBebida(): Collection
     {
-        return $this->detalleComanda;
+        return $this->DetalleComandaBebida;
     }
 
-    public function setDetalleComanda(?DetalleComanda $detalleComanda): self
+    public function addDetalleComandaBebida(DetalleComandaBebida $detalleComandaBebida): self
     {
-        $this->detalleComanda = $detalleComanda;
+        if (!$this->DetalleComandaBebida->contains($detalleComandaBebida)) {
+            $this->DetalleComandaBebida->add($detalleComandaBebida);
+            $detalleComandaBebida->setBebida($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetalleComandaBebida(DetalleComandaBebida $detalleComandaBebida): self
+    {
+        if ($this->DetalleComandaBebida->removeElement($detalleComandaBebida)) {
+            // set the owning side to null (unless already changed)
+            if ($detalleComandaBebida->getBebida() === $this) {
+                $detalleComandaBebida->setBebida(null);
+            }
+        }
 
         return $this;
     }

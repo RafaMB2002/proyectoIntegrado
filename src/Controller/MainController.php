@@ -54,4 +54,10 @@ class MainController extends AbstractController
         return $this->render('main/index.html.twig');
     }
 
+    #[Route('/', name: 'homepage2')]
+    public function homepage2(): Response
+    {
+        return $this->render('main/index.html.twig');
+    }
+
 }

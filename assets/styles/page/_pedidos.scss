@@ -1,102 +1,109 @@
-.containerPedidos {
+.container-pedidos {
     body {
-        background-color: #776862;
+        font-family: "Lora", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-size: 1rem;
+        font-weight: 400;
+        color: #361f18;
     }
 
-    h2 {
+    h1 {
+        font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-size: 2rem;
+        font-weight: 800;
         color: #e6a756;
     }
 
-    .carrito-icono {
+
+
+    .section-title {
+        margin-top: 20px;
+    }
+
+    .add-to-cart-btn {
+        background-color: #e6a756;
+        color: #ffffff;
+        border: none;
+        padding: 6px 12px;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    .add-to-cart-btn:hover {
+        background-color: #dba158;
+    }
+
+    .cart-btn {
+        background-color: #e6a756;
+        color: #ffffff;
+        border: none;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        cursor: pointer;
+    }
+
+    .cart-btn:hover {
+        background-color: #dba158;
+    }
+
+    #cart-icon {
         position: fixed;
         top: 20px;
         right: 20px;
         font-size: 24px;
-        color: #e0ccb4;
+        color: #e6a756;
         cursor: pointer;
     }
 
-    .carrito-modal .modal-dialog {
+    #cart-modal .modal-dialog {
         max-width: 500px;
     }
 
-    .carrito-modal .modal-content {
-        background-color: #e0ccb4;
-    }
-
-    .carrito-modal .modal-header {
-        border-bottom: none;
-    }
-
-    .carrito-modal .modal-title {
-        color: #776862;
-    }
-
-    .carrito-modal .modal-body {
+    #cart-modal .modal-content {
         padding: 20px;
-    }
 
-    .carrito-modal .modal-footer {
-        border-top: none;
-    }
-
-    .carrito-item {
-        margin-bottom: 10px;
-    }
-
-    .carrito-item .btn {
-        margin-left: 10px;
-    }
-
-    // Variables
-    $modal-bg-color: rgba(0, 0, 0, 0.5);
-    $modal-content-bg-color: #fff;
-    $modal-content-padding: 20px;
-
-    // Estilo del modal
-    #cart-modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: $modal-bg-color;
-        z-index: 9999;
-
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: $modal-content-bg-color;
-            padding: $modal-content-padding;
-            // Agrega otros estilos según tus necesidades
+        h5 {
+            text-decoration: underline;
         }
     }
 
-    //navBar
-
-    .navbar-nav {
-        margin-left: auto;
+    #cart-modal .modal-body {
+        max-height: 400px;
+        overflow-y: auto;
     }
 
-    .nav-item {
+    #cart-modal .item {
+        margin-bottom: 10px;
+    }
+
+    #cart-modal .item .name {
+        font-weight: 600;
+    }
+
+    #cart-modal .item .price {
+        font-size: 0.9rem;
+        color: #666666;
+    }
+
+    #cart-modal .item .quantity {
+        font-size: 0.9rem;
+        color: #666666;
         margin-left: 10px;
     }
 
-    .navbar {
-        background-color: #361f18;
+    #cart-modal .total-price {
+        font-weight: 600;
     }
 
-    nav {
-        a {
-                margin-left: 30px;
-                font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-                font-size: 1.5rem;
-                font-weight: 750;
-                color: rgba(255, 255, 255, 0.7);
+    .modal-footer {
+        display: flex;
+        justify-content: space-between;
 
+        .footer-left {
+            text-align: left;
+        }
+
+        .footer-right {
+            text-align: right;
         }
     }
 }

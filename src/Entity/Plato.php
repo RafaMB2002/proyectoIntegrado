@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PlatoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,8 +34,13 @@ class Plato
     #[ORM\Column(length: 255)]
     private ?string $Tipo = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Plato')]
-    private ?DetalleComanda $detalleComanda = null;
+    #[ORM\OneToMany(mappedBy: 'plato', targetEntity: DetalleComandaPlato::class)]
+    private Collection $DetalleComandaPlato;
+
+    public function __construct()
+    {
+        $this->DetalleComandaPlato = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -112,14 +119,32 @@ class Plato
         return $this;
     }
 
-    public function getDetalleComanda(): ?DetalleComanda
+    /**
+     * @return Collection<int, DetalleComandaPlato>
+     */
+    public function getDetalleComandaPlato(): Collection
     {
-        return $this->detalleComanda;
+        return $this->DetalleComandaPlato;
     }
 
-    public function setDetalleComanda(?DetalleComanda $detalleComanda): self
+    public function addDetalleComandaPlato(DetalleComandaPlato $detalleComandaPlato): self
     {
-        $this->detalleComanda = $detalleComanda;
+        if (!$this->DetalleComandaPlato->contains($detalleComandaPlato)) {
+            $this->DetalleComandaPlato->add($detalleComandaPlato);
+            $detalleComandaPlato->setPlato($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDetalleComandaPlato(DetalleComandaPlato $detalleComandaPlato): self
+    {
+        if ($this->DetalleComandaPlato->removeElement($detalleComandaPlato)) {
+            // set the owning side to null (unless already changed)
+            if ($detalleComandaPlato->getPlato() === $this) {
+                $detalleComandaPlato->setPlato(null);
+            }
+        }
 
         return $this;
     }

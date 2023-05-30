@@ -18,16 +18,16 @@ class DetalleComanda
     #[ORM\ManyToOne(inversedBy: 'DetalleComanda')]
     private ?Comanda $comanda = null;
 
-    #[ORM\OneToMany(mappedBy: 'detalleComanda', targetEntity: Plato::class)]
-    private Collection $Plato;
+    #[ORM\OneToMany(mappedBy: 'detalleComanda', targetEntity: DetalleComandaPlato::class, cascade: ['persist'])]
+    private Collection $DetalleComandaPlato;
 
-    #[ORM\OneToMany(mappedBy: 'detalleComanda', targetEntity: Bebida::class)]
-    private Collection $Bebida;
+    #[ORM\OneToMany(mappedBy: 'detalleComanda', targetEntity: DetalleComandaBebida::class, cascade:['persist'])]
+    private Collection $DetalleComandaBebida;
 
     public function __construct()
     {
-        $this->Plato = new ArrayCollection();
-        $this->Bebida = new ArrayCollection();
+        $this->DetalleComandaPlato = new ArrayCollection();
+        $this->DetalleComandaBebida = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -48,29 +48,29 @@ class DetalleComanda
     }
 
     /**
-     * @return Collection<int, Plato>
+     * @return Collection<int, DetalleComandaPlato>
      */
-    public function getPlato(): Collection
+    public function getDetalleComandaPlato(): Collection
     {
-        return $this->Plato;
+        return $this->DetalleComandaPlato;
     }
 
-    public function addPlato(Plato $plato): self
+    public function addDetalleComandaPlato(DetalleComandaPlato $detalleComandaPlato): self
     {
-        if (!$this->Plato->contains($plato)) {
-            $this->Plato->add($plato);
-            $plato->setDetalleComanda($this);
+        if (!$this->DetalleComandaPlato->contains($detalleComandaPlato)) {
+            $this->DetalleComandaPlato->add($detalleComandaPlato);
+            $detalleComandaPlato->setDetalleComanda($this);
         }
 
         return $this;
     }
 
-    public function removePlato(Plato $plato): self
+    public function removeDetalleComandaPlato(DetalleComandaPlato $detalleComandaPlato): self
     {
-        if ($this->Plato->removeElement($plato)) {
+        if ($this->DetalleComandaPlato->removeElement($detalleComandaPlato)) {
             // set the owning side to null (unless already changed)
-            if ($plato->getDetalleComanda() === $this) {
-                $plato->setDetalleComanda(null);
+            if ($detalleComandaPlato->getDetalleComanda() === $this) {
+                $detalleComandaPlato->setDetalleComanda(null);
             }
         }
 
@@ -78,32 +78,117 @@ class DetalleComanda
     }
 
     /**
-     * @return Collection<int, Bebida>
+     * Agrega un plato a la comanda.
+     * @param Plato $plato El plato a agregar.
+     * @param int $cantidad La cantidad del plato.
      */
-    public function getBebida(): Collection
+    public function addPlato(Plato $plato, int $cantidad = 1): void
     {
-        return $this->Bebida;
+        $itemDetalleComanda = new DetalleComandaPlato();
+        $itemDetalleComanda->setDetalleComanda($this);
+        $itemDetalleComanda->setPlato($plato);
+        $itemDetalleComanda->setCantidad($cantidad);
+
+        $this->DetalleComandaPlato->add($itemDetalleComanda);
     }
 
-    public function addBebida(Bebida $bebida): self
+    /**
+     * Agrega varios platos a la comanda.
+     * @param array $platos El array de platos a agregar.
+     * Cada elemento del array debe ser un array asociativo con las claves "plato" (Plato) y "cantidad" (int).
+     */
+    public function addPlatos(array $platos): void
     {
-        if (!$this->Bebida->contains($bebida)) {
-            $this->Bebida->add($bebida);
-            $bebida->setDetalleComanda($this);
+        foreach ($platos as $platoData) {
+            $plato = $platoData['plato'];
+            $cantidad = $platoData['cantidad'];
+
+            $itemDetalleComanda = new DetalleComandaPlato();
+            $itemDetalleComanda->setDetalleComanda($this);
+            $itemDetalleComanda->setPlato($plato);
+            $itemDetalleComanda->setCantidad($cantidad);
+
+            $this->DetalleComandaPlato->add($itemDetalleComanda);
+        }
+    }
+
+    /**
+     * Obtiene todos los platos asociados a la comanda.
+     * @return array La lista de platos.
+     */
+    public function getPlatos(): array
+    {
+        $platos = [];
+
+        foreach ($this->DetalleComandaPlato as $itemComanda) {
+            $platos[] = $itemComanda->getPlato();
+        }
+
+        return $platos;
+    }
+
+    /**
+     * @return Collection<int, DetalleComandaBebida>
+     */
+    public function getDetalleComandaBebida(): Collection
+    {
+        return $this->DetalleComandaBebida;
+    }
+
+    public function addDetalleComandaBebida(DetalleComandaBebida $detalleComandaBebida): self
+    {
+        if (!$this->DetalleComandaBebida->contains($detalleComandaBebida)) {
+            $this->DetalleComandaBebida->add($detalleComandaBebida);
+            $detalleComandaBebida->setDetalleComanda($this);
         }
 
         return $this;
     }
 
-    public function removeBebida(Bebida $bebida): self
+    public function removeDetalleComandaBebida(DetalleComandaBebida $detalleComandaBebida): self
     {
-        if ($this->Bebida->removeElement($bebida)) {
+        if ($this->DetalleComandaBebida->removeElement($detalleComandaBebida)) {
             // set the owning side to null (unless already changed)
-            if ($bebida->getDetalleComanda() === $this) {
-                $bebida->setDetalleComanda(null);
+            if ($detalleComandaBebida->getDetalleComanda() === $this) {
+                $detalleComandaBebida->setDetalleComanda(null);
             }
         }
 
         return $this;
+    }
+
+    /**
+     * Agrega varias bebidas a la comanda.
+     * @param array $bebidas El array de bebidas a agregar.
+     * Cada elemento del array debe ser un array asociativo con las claves "bebida" (Bebida) y "cantidad" (int).
+     */
+    public function addBebidas(array $bebidas): void
+    {
+        foreach ($bebidas as $bebidaData) {
+            $bebida = $bebidaData['plato'];
+            $cantidad = $bebidaData['cantidad'];
+
+            $itemDetalleComanda = new DetalleComandaBebida();
+            $itemDetalleComanda->setDetalleComanda($this);
+            $itemDetalleComanda->setBebida($bebida);
+            $itemDetalleComanda->setCantidad($cantidad);
+
+            $this->DetalleComandaBebida->add($itemDetalleComanda);
+        }
+    }
+
+    /**
+     * Obtiene todas las bebidas asociadas a la comanda.
+     * @return array La lista de bebidas.
+     */
+    public function getBebidas(): array
+    {
+        $bebidas = [];
+
+        foreach ($this->DetalleComandaBebida as $itemComanda) {
+            $bebidas[] = $itemComanda->getBebida();
+        }
+
+        return $bebidas;
     }
 }

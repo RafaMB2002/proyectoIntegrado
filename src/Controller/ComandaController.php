@@ -3,10 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Comanda;
+use App\Entity\DetalleComanda;
+use App\Entity\DetalleComandaPlato;
 use App\Entity\Mesa;
+use App\Entity\Plato;
 use App\Entity\Trabajador;
+use App\Repository\BebidaRepository;
 use App\Repository\ComandaRepository;
+use App\Repository\DetalleComandaRepository;
 use App\Repository\MesaRepository;
+use App\Repository\PlatoRepository;
 use App\Repository\TrabajadorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,11 +27,17 @@ class ComandaController extends AbstractController
 
     private $comandaRepository;
     private $mesaRepository;
+    private $detalleComandaRepository;
+    private $platoRepository;
+    private $bebidaRepository;
 
-    public function __construct(ComandaRepository $comandaRepository, MesaRepository $mesaRepository)
+    public function __construct(ComandaRepository $comandaRepository, MesaRepository $mesaRepository, DetalleComandaRepository $detalleComandaRepository, PlatoRepository $platoRepository, BebidaRepository $bebidaRepository)
     {
         $this->comandaRepository = $comandaRepository;
         $this->mesaRepository = $mesaRepository;
+        $this->detalleComandaRepository = $detalleComandaRepository;
+        $this->platoRepository = $platoRepository;
+        $this->bebidaRepository = $bebidaRepository;
     }
 
     public function comandaExist($fechaHoraInicio, $idMesa)
@@ -141,5 +153,43 @@ class ComandaController extends AbstractController
         } else {
             return $this->json(['error' => 'No se pudo actualizar'], 500);
         }
+    }
+
+    #[Route('/addPlatos/{id}', name: 'add_detalle_comanda', methods:'POST')]
+    public function addDetalleComanda(Request $request, EntityManagerInterface $entityManager, int $id): JsonResponse
+    {
+        $detalleComanda = 's';
+        $platos = json_decode($request->getContent(), true);
+
+        foreach ($platos as $platoData) {
+            $plato = $this->platoRepository->find($platoData['id']);
+            $detalleComanda->addPlato($plato, $platoData['cantidad']);
+        }
+
+        $entityManager->persist($detalleComanda);
+        $entityManager->flush();
+
+        return new JsonResponse(['message' => 'Platos agregados a la comanda'], 201);
+    }
+
+    #[Route('/getPlatos', name: 'get_platos')]
+    public function getPlatos(ComandaRepository $comandaRepository, DetalleComandaRepository $detalleComandaRepository, PlatoRepository $platoRepository, EntityManagerInterface $entityManager, BebidaRepository $bebidaRepository): Response
+    {
+        $platos = [];
+        $comanda = $comandaRepository->find(19);
+        $detalleComandaCollecion = $comanda->getDetalleComanda();
+        $platos = $detalleComandaCollecion[0]->getPlatos();
+
+
+        foreach ($platos as $plato) {
+            echo "Nombre: " . $plato->getNombre() . "\n";
+            echo "Precio: " . $plato->getPrecio() . "\n";
+            echo "\n";
+        }
+        return new Response('Hecho!');
+    }
+
+    public function createDetalleComanda(){
+        
     }
 }
