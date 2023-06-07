@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inicio de Sesión{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <form action="{{ path('app_login') }}" method="post">
+        <label for="dni">DNI:</label>
+        <input type="text" id="dni" name="_username" value="{{ last_username }}">
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password">
+
+        <input type="hidden" name="_target_path" value="/home">
+
+        <button type="submit">Iniciar sesion</button>
+    </form>
+{% endblock %}

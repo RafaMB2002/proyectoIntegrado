@@ -5,6 +5,8 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+@import url("https://fonts.googleapis.com/css2?family=Rubik+Puddles&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap");
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -21905,7 +21907,7 @@ textarea.form-control-lg {
   }
 }
 body {
-  background-image: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url("images/bg.jpg");
+  background-image: url("../css/images/playa.jpg");
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
@@ -21924,7 +21926,7 @@ p {
   margin-bottom: 5rem;
   text-transform: uppercase;
   line-height: 1;
-  font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "Permanent Marker", cursive;
 }
 
 .site-heading .site-heading-upper {
@@ -22046,13 +22048,14 @@ p {
 }
 
 .intro {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (min-width: 992px) {
   .intro .intro-img {
     width: 75%;
-    float: right;
   }
   .intro .intro-text {
     left: 0;
@@ -22245,4 +22248,13 @@ p {
 }
 .container-pedidos .modal-footer .footer-right {
   text-align: right;
+}
+
+@font-face {
+  font-family: "dacherry";
+  src: url("/public/css/fonts/Dacherry.ttf") format("truetype");
+}
+@font-face {
+  font-family: "dacherry2";
+  src: url("/public/css/fonts/Dacherry.otf") format("truetype");
 }/*# sourceMappingURL=app.css.map */

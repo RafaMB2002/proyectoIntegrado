@@ -19,19 +19,6 @@ class PedidosController extends AbstractController
         ]);
     }
 
-    #[Route('/pedidos', name: 'pedidos')]
-    public function pedidos(PlatoRepository $platoRepository, BebidaRepository $bebidaRepository): Response
-    {
-        $platos = $platoRepository->findAll();
-        $bebidas = $bebidaRepository->findAll();
-
-        return $this->render('pedidos/pedidos.html.twig', [
-            'controller_name' => 'PedidosController',
-            'platos' => $platos,
-            'bebidas' => $bebidas
-        ]);
-    }
-
     #[Route('/finalizarComanda', name: 'finalizarComanda')]
     public function finalizarComanda(ComandaRepository $comandaRepository): Response
     {

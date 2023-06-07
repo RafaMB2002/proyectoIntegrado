@@ -21,7 +21,7 @@ class DetalleComanda
     #[ORM\OneToMany(mappedBy: 'detalleComanda', targetEntity: DetalleComandaPlato::class, cascade: ['persist'])]
     private Collection $DetalleComandaPlato;
 
-    #[ORM\OneToMany(mappedBy: 'detalleComanda', targetEntity: DetalleComandaBebida::class, cascade:['persist'])]
+    #[ORM\OneToMany(mappedBy: 'detalleComanda', targetEntity: DetalleComandaBebida::class, cascade: ['persist'])]
     private Collection $DetalleComandaBebida;
 
     public function __construct()
@@ -175,6 +175,21 @@ class DetalleComanda
 
             $this->DetalleComandaBebida->add($itemDetalleComanda);
         }
+    }
+
+    /**
+     * Agrega una bebida a la comanda.
+     * @param Bebida $bebida La bebida a agregar.
+     * @param int $cantidad La cantidad de la bebida.
+     */
+    public function addBebida(Bebida $bebida, int $cantidad = 1): void
+    {
+        $itemDetalleComanda = new DetalleComandaBebida();
+        $itemDetalleComanda->setDetalleComanda($this);
+        $itemDetalleComanda->setBebida($bebida);
+        $itemDetalleComanda->setCantidad($cantidad);
+
+        $this->DetalleComandaBebida->add($itemDetalleComanda);
     }
 
     /**

@@ -8,7 +8,7 @@
 			{% endblock %}
 		</title>
 		<link
-		rel="icon" type="image/x-icon" href="images/favicon.ico">
+		rel="icon" type="image/x-icon" href="{{asset('images/favicon.ico')}}">
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
 			{# {{ encore_entry_link_tags('app') }} #}
@@ -16,7 +16,7 @@
 			<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"/>
 			<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet"/>
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-			<link href="css/app.css" rel="stylesheet"/>
+			<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		{% endblock %}
 
 		{% block javascripts %}
@@ -24,9 +24,9 @@
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
-			<script src="build/js/qr.js"></script>
-			<script src="build/js/pedidos.js"></script>
-			<script src="build/js/finalizarComanda.js"></script>
+			<script src="{{asset('build/js/qr.js')}}"></script>
+			<script src="{{asset('build/js/pedidos.js')}}"></script>
+			<script src="{{asset('build/js/finalizarComanda.js')}}"></script>
 		{% endblock %}
 	</head>
 	<body>

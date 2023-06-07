@@ -8,6 +8,7 @@
 	<div class="container-pedidos">
 		<div class="container">
 			<h1>Carta Bar Piscina la Calle Nueva</h1>
+			<span id= "idDetalleComanda" style="display: none;">{{idDetalleComanda}}</span>
 
 			<div class="section-title">
 				<h2>Para picar</h2>
@@ -19,7 +20,167 @@
 									<div class="card-body">
 										<h5 class="card-title">{{ plato.nombre }}</h5>
 										<p class="card-text">Precio:
-											{{ plato.precio }}</p>
+											{{ plato.precio }}€</p>
+										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="section-title">
+				<h2>Pescado y marisco</h2>
+				<div class="row">
+					{% for plato in platos %}
+						{% if plato.tipo == "Pescado-Marisco" %}
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h5 class="card-title">{{ plato.nombre }}</h5>
+										<p class="card-text">Precio:
+											{{ plato.precio }}€</p>
+										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="section-title">
+				<h2>Carne</h2>
+				<div class="row">
+					{% for plato in platos %}
+						{% if plato.tipo == "Carne" %}
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h5 class="card-title">{{ plato.nombre }}</h5>
+										<p class="card-text">Precio:
+											{{ plato.precio }}€</p>
+										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="section-title">
+				<h2>Baguette y alpargata</h2>
+				<div class="row">
+					{% for plato in platos %}
+						{% if plato.tipo == "Baguette-Alpargata" %}
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h5 class="card-title">{{ plato.nombre }}</h5>
+										<p class="card-text">Precio:
+											{{ plato.precio }}€</p>
+										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="section-title">
+				<h2>Roscas</h2>
+				<div class="row">
+					{% for plato in platos %}
+						{% if plato.tipo == "Rosca" %}
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h5 class="card-title">{{ plato.nombre }}</h5>
+										<p class="card-text">Precio:
+											{{ plato.precio }}€</p>
+										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="section-title">
+				<h2>Hamburguesas</h2>
+				<div class="row">
+					{% for plato in platos %}
+						{% if plato.tipo == "Hamburguesa" %}
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h5 class="card-title">{{ plato.nombre }}</h5>
+										<p class="card-text">Precio:
+											{{ plato.precio }}€</p>
+										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="section-title">
+				<h2>Sandwiches</h2>
+				<div class="row">
+					{% for plato in platos %}
+						{% if plato.tipo == "Sandwich" %}
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h5 class="card-title">{{ plato.nombre }}</h5>
+										<p class="card-text">Precio:
+											{{ plato.precio }}€</p>
+										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="section-title">
+				<h2>Para los peques</h2>
+				<div class="row">
+					{% for plato in platos %}
+						{% if plato.tipo == "Peques" %}
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h5 class="card-title">{{ plato.nombre }}</h5>
+										<p class="card-text">Precio:
+											{{ plato.precio }}€</p>
+										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+
+			<div class="section-title">
+				<h2>Postres</h2>
+				<div class="row">
+					{% for plato in platos %}
+						{% if plato.tipo == "Postre" %}
+							<div class="col-md-4">
+								<div class="card">
+									<div class="card-body">
+										<h5 class="card-title">{{ plato.nombre }}</h5>
+										<p class="card-text">Precio:
+											{{ plato.precio }}€</p>
 										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
 									</div>
 								</div>
@@ -40,7 +201,7 @@
 								<div class="card-body">
 									<h5 class="card-title">{{ bebida.nombre }}</h5>
 									<p class="card-text">Precio:
-										{{ bebida.precio }}</p>
+										{{ bebida.precio }}€</p>
 									<button class="btn btn-primary add-to-cart-btn" data-id="{{ bebida.id }}" data-nombre="{{ bebida.nombre }}" data-precio="{{ bebida.precio }}">+</button>
 								</div>
 							</div>

@@ -10826,7 +10826,7 @@ textarea.form-control-lg {
   }
 }
 body {
-  background-image: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url("images/bg.jpg");
+  background-image: url("../css/images/playa.jpg");
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
@@ -10845,7 +10845,7 @@ p {
   margin-bottom: 5rem;
   text-transform: uppercase;
   line-height: 1;
-  font-family: "Raleway", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: 'Permanent Marker', cursive;
 }
 .site-heading .site-heading-upper {
   display: block;
@@ -10959,12 +10959,13 @@ p {
 }
 
 .intro {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media (min-width: 992px) {
   .intro .intro-img {
     width: 75%;
-    float: right;
   }
   .intro .intro-text {
     left: 0;

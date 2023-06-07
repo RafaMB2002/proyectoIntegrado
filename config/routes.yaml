@@ -3,3 +3,12 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+    # config/routes.yaml
+app_login:
+    path: /login
+    controller: App\Controller\LoginController::login
+
+app_login_check:
+    path: /login_check
+    controller: App\Controller\LoginController::loginCheck
+

@@ -19,8 +19,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use \DateTime;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ComandaController extends AbstractController
 {
@@ -30,14 +33,18 @@ class ComandaController extends AbstractController
     private $detalleComandaRepository;
     private $platoRepository;
     private $bebidaRepository;
+    private $entityManager;
+    private $urlGenerator;
 
-    public function __construct(ComandaRepository $comandaRepository, MesaRepository $mesaRepository, DetalleComandaRepository $detalleComandaRepository, PlatoRepository $platoRepository, BebidaRepository $bebidaRepository)
+    public function __construct(ComandaRepository $comandaRepository, MesaRepository $mesaRepository, DetalleComandaRepository $detalleComandaRepository, PlatoRepository $platoRepository, BebidaRepository $bebidaRepository, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator)
     {
         $this->comandaRepository = $comandaRepository;
         $this->mesaRepository = $mesaRepository;
         $this->detalleComandaRepository = $detalleComandaRepository;
         $this->platoRepository = $platoRepository;
         $this->bebidaRepository = $bebidaRepository;
+        $this->entityManager = $entityManager;
+        $this->urlGenerator = $urlGenerator;
     }
 
     public function comandaExist($fechaHoraInicio, $idMesa)
@@ -155,10 +162,10 @@ class ComandaController extends AbstractController
         }
     }
 
-    #[Route('/addPlatos/{id}', name: 'add_detalle_comanda', methods:'POST')]
-    public function addDetalleComanda(Request $request, EntityManagerInterface $entityManager, int $id): JsonResponse
+    #[Route('/addPlatos/{id}', name: 'add_detalle_comanda_platos', methods: 'PATCH')]
+    public function addDetalleComandaPlatos(Request $request, EntityManagerInterface $entityManager, int $id): JsonResponse
     {
-        $detalleComanda = 's';
+        $detalleComanda = $this->detalleComandaRepository->find($id);
         $platos = json_decode($request->getContent(), true);
 
         foreach ($platos as $platoData) {
@@ -172,24 +179,80 @@ class ComandaController extends AbstractController
         return new JsonResponse(['message' => 'Platos agregados a la comanda'], 201);
     }
 
-    #[Route('/getPlatos', name: 'get_platos')]
-    public function getPlatos(ComandaRepository $comandaRepository, DetalleComandaRepository $detalleComandaRepository, PlatoRepository $platoRepository, EntityManagerInterface $entityManager, BebidaRepository $bebidaRepository): Response
+    #[Route('/addBebidas/{id}', name: 'add_detalle_comanda_bebidas', methods: 'PATCH')]
+    public function addDetalleComandabebidas(Request $request, EntityManagerInterface $entityManager, int $id): JsonResponse
+    {
+        $detalleComanda = $this->detalleComandaRepository->find($id);
+        $bebidas = json_decode($request->getContent(), true);
+
+        foreach ($bebidas as $bebidaData) {
+            $bebida = $this->bebidaRepository->find($bebidaData['id']);
+            $detalleComanda->addBebida($bebida, $bebidaData['cantidad']);
+        }
+
+        $entityManager->persist($detalleComanda);
+        $entityManager->flush();
+
+        return new JsonResponse(['message' => 'Bebidas agregadas a la comanda'], 201);
+    }
+
+    #[Route('/getPlatos/{id}', name: 'get_platos', methods: 'GET')]
+    public function getPlatos(ComandaRepository $comandaRepository, DetalleComandaRepository $detalleComandaRepository, PlatoRepository $platoRepository, EntityManagerInterface $entityManager, BebidaRepository $bebidaRepository, $id): Response
     {
         $platos = [];
-        $comanda = $comandaRepository->find(19);
+        $comanda = $comandaRepository->find($id);
         $detalleComandaCollecion = $comanda->getDetalleComanda();
-        $platos = $detalleComandaCollecion[0]->getPlatos();
 
 
-        foreach ($platos as $plato) {
-            echo "Nombre: " . $plato->getNombre() . "\n";
-            echo "Precio: " . $plato->getPrecio() . "\n";
-            echo "\n";
+        for ($i = 0; $i < count($detalleComandaCollecion); $i++) {
+            $platos = $detalleComandaCollecion[$i]->getPlatos();
+            foreach ($platos as $plato) {
+                echo "Nombre: " . $plato->getNombre() . "\n";
+                echo "Precio: " . $plato->getPrecio() . "\n";
+                echo "\n\n";
+            }
         }
+
         return new Response('Hecho!');
     }
 
-    public function createDetalleComanda(){
-        
+    #[Route('/getBebidas/{id}', name: 'get_bebidas', methods: 'GET')]
+    public function getBebidas(ComandaRepository $comandaRepository, DetalleComandaRepository $detalleComandaRepository, PlatoRepository $platoRepository, EntityManagerInterface $entityManager, BebidaRepository $bebidaRepository, $id): Response
+    {
+        $bebidas = [];
+        $comanda = $comandaRepository->find($id);
+        $detalleComandaCollecion = $comanda->getDetalleComanda();
+
+
+        for ($i = 0; $i < count($detalleComandaCollecion); $i++) {
+            $bebidas = $detalleComandaCollecion[$i]->getBebidas();
+            foreach ($bebidas as $bebida) {
+                echo "Nombre: " . $bebida->getNombre() . "\n";
+                echo "Precio: " . $bebida->getPrecio() . "\n";
+                echo "\n\n";
+            }
+        }
+
+        return new Response('Hecho!');
+    }
+
+    #[Route('/crearDetalleComanda/{id}', name: 'crear_detalle_comanda', methods: 'GET')]
+    public function createDetalleComanda($id)
+    {
+        $comanda = $this->comandaRepository->find($id);
+        $detalleComanda = new DetalleComanda();
+        $detalleComanda->setComanda($comanda);
+        $this->entityManager->persist($detalleComanda);
+        $this->entityManager->flush();
+
+        $platos = $this->platoRepository->findAll();
+        $bebidas = $this->bebidaRepository->findAll();
+
+        return $this->render('pedidos/pedidos.html.twig', [
+            'controller_name' => 'ComandaController',
+            'platos' => $platos,
+            'bebidas' => $bebidas,
+            'idDetalleComanda' => $detalleComanda->getId()
+        ]);
     }
 }

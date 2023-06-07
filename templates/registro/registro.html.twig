@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block body %}
+    <h1>Registro</h1>
+
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <form action="{{ path('registro_procesar') }}" method="POST">
+        {{ form_widget(form) }}
+
+        <button type="submit" class="btn btn-primary">Registrarse</button>
+    </form>
+{% endblock %}
+
