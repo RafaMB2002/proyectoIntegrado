@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
 
 class LoginController extends AbstractController
 {
@@ -56,9 +60,29 @@ class LoginController extends AbstractController
         }
     } */
 
-    #[Route('/logout', name: 'logout')]
-    public function logout()
+    /* #[Route('/authenticate', name: 'app_authenticate', methods: ['POST'])]
+    public function authenticate(Request $request): Response
     {
-        // Esta acción no requiere implementación, Symfony se encarga del cierre de sesión automáticamente
+        $username = $request->request->get('_username');
+        $password = $request->request->get('_password');
+
+        // Verificar las credenciales ingresadas
+        if ($username === 'usuario' && $password === 'contraseña') {
+            // Credenciales válidas, proceder con el inicio de sesión exitoso
+            return $this->redirectToRoute('home');
+        } else {
+            // Credenciales inválidas, mostrar mensaje de error
+            $errorMessage = 'Credenciales inválidas';
+            $exception = new AuthenticationException($errorMessage);
+
+            throw $exception;
+        }
+    } */
+
+    #[Route('/logout', name: 'logout')]
+    public function logout(): RedirectResponse
+    {
+
+        return $this->redirectToRoute('app_login');
     }
 }

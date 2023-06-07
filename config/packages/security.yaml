@@ -33,7 +33,7 @@ security:
                 
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/registrado, roles: ROLE_JEFE }
+         - { path: ^/registro, roles: ROLE_JEFE }
          - { path: ^/comandas, roles: ROLE_CAMARERO }
          - { path: ^/comandas/visualizar, roles: ROLE_COCINERO }
         # - { path: ^/profile, roles: ROLE_USER }

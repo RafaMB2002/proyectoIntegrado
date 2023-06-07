@@ -12,3 +12,7 @@ app_login_check:
     path: /login_check
     controller: App\Controller\LoginController::loginCheck
 
+app_logout:
+    path: /logout
+    controller: App\Controller\LoginController::logout
+
