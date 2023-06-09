@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+{% block javascripts %}
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+	<script src="{{asset('build/js/qr.js')}}"></script>
+	<script src="{{asset('build/js/pedidos.js')}}"></script>
+	<script src="{{asset('build/js/finalizarComanda.js')}}"></script>
+	<script src="{{asset('build/js/mostrarComandas.js')}}"></script>
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<span style="display: none;" id="numDetalleComandaPlato">{{ numDetalleComandaPlato }}</span>
+		<h1>Comandas</h1>
+		<div id="comandas-container">
+			{% for comanda in comandas %}
+				<div class="card mb-3">
+					<div class="card-header">
+						Mesa:
+						{{ comanda.mesa.id }}
+					</div>
+					<div class="card-body">
+						{% for detalleComanda in comanda.getDetalleComanda %}
+							{% for detalleComandaPlato in detalleComanda.getDetalleComandaPlato %}
+								{% set cantidad = detalleComandaPlato.cantidad %}
+								{% for i in 1..cantidad %}
+									<div class="d-flex justify-content-between align-items-center mb-2">
+										<div {% if detalleComandaPlato.finalizado %}class="plato-finalizado"{% endif %}
+                                        >{{ detalleComandaPlato.getPlato.nombre }}</div>
+										{% if not detalleComandaPlato.finalizado %}
+											<button data-id="{{ detalleComandaPlato.id}}" class="btn btn-finalizar">Finalizar</button>
+										{% endif %}
+                                        {% if detalleComandaPlato.finalizado %}
+											<button data-id="{{ detalleComandaPlato.id}}" class="btn btn-success">Listo</button>
+										{% endif %}
+									</div>
+								{% endfor %}
+							{% endfor %}
+						{% endfor %}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

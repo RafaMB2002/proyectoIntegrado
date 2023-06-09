@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ComandaRepository::class)]
 class Comanda
@@ -23,6 +24,7 @@ class Comanda
     private ?\DateTimeInterface $FechaHoraFin = null;
 
     #[ORM\OneToMany(mappedBy: 'comanda', targetEntity: DetalleComanda::class)]
+    #[Groups("comanda")]
     private Collection $DetalleComanda;
 
     #[ORM\ManyToOne(inversedBy: 'comandas')]

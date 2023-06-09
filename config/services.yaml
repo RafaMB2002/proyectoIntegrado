@@ -25,3 +25,4 @@ services:
     App\Validator\DniValidator:
         tags: ['validator.constraint_validator']
     app\Validator\Dni: ~
+    App\Entity\DetalleComandaPlato: ~

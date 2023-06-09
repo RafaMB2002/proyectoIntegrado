@@ -10,6 +10,7 @@ use App\Entity\Plato;
 use App\Entity\Trabajador;
 use App\Repository\BebidaRepository;
 use App\Repository\ComandaRepository;
+use App\Repository\DetalleComandaPlatoRepository;
 use App\Repository\DetalleComandaRepository;
 use App\Repository\MesaRepository;
 use App\Repository\PlatoRepository;
@@ -24,6 +25,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 class ComandaController extends AbstractController
 {
@@ -35,8 +38,9 @@ class ComandaController extends AbstractController
     private $bebidaRepository;
     private $entityManager;
     private $urlGenerator;
+    private $detalleComandaPlato;
 
-    public function __construct(ComandaRepository $comandaRepository, MesaRepository $mesaRepository, DetalleComandaRepository $detalleComandaRepository, PlatoRepository $platoRepository, BebidaRepository $bebidaRepository, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator)
+    public function __construct(ComandaRepository $comandaRepository, MesaRepository $mesaRepository, DetalleComandaRepository $detalleComandaRepository, PlatoRepository $platoRepository, BebidaRepository $bebidaRepository, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, DetalleComandaPlato $detalleComandaPlato)
     {
         $this->comandaRepository = $comandaRepository;
         $this->mesaRepository = $mesaRepository;
@@ -45,6 +49,7 @@ class ComandaController extends AbstractController
         $this->bebidaRepository = $bebidaRepository;
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
+        $this->detalleComandaPlato = $detalleComandaPlato;
     }
 
     public function comandaExist($fechaHoraInicio, $idMesa)
@@ -254,5 +259,59 @@ class ComandaController extends AbstractController
             'bebidas' => $bebidas,
             'idDetalleComanda' => $detalleComanda->getId()
         ]);
+    }
+    #[Route('/comandas2', name: 'comandas_cocina')]
+    public function comandas2(EntityManagerInterface $entityManager, DetalleComandaPlatoRepository $detalleComandaPlatoRepository): Response
+    {
+
+        // Consulta para obtener las comandas activas con sus platos
+        $query = $entityManager->createQuery('
+        SELECT c, dc, dcp, p
+        FROM App\Entity\Comanda c
+        JOIN c.DetalleComanda dc
+        join dc.DetalleComandaPlato dcp
+        JOIN dcp.plato p
+        WHERE c.FechaHoraFin IS NULL
+');
+
+        // Ejecutar la consulta y obtener los resultados
+        $comandas = $query->getResult();
+
+        $detalleComandaPlato = $detalleComandaPlatoRepository->findAll();
+
+        return $this->render('comanda/comandas_disponibles_cocina.html.twig', [
+            'comandas' => $comandas,
+            'numDetalleComandaPlato' => count($detalleComandaPlato)
+        ]);
+    }
+
+    #[Route('/obtener-comandas', name: 'obtener-comandas')]
+    public function obtenerComandas(EntityManagerInterface $entityManager, DetalleComandaPlatoRepository $detalleComandaPlatoRepository, SerializerInterface $serializerInterface): JsonResponse
+    {
+
+        $detalleComandaPlato = $detalleComandaPlatoRepository->findAll();
+        
+
+        // Devolver las comandas serializadas como respuesta JSON
+        return new JsonResponse(count($detalleComandaPlato), 200, [], true);
+    }
+
+
+
+    #[Route('/marcar-finalizado', name: 'finalizar_comida', methods: 'POST')]
+    public function marcarFinalizado(Request $request, EntityManagerInterface $entityManager)
+    {
+        $platoId = $request->request->get('id');
+
+        $detalleComandaPlato = $entityManager->getRepository(DetalleComandaPlato::class)->find($platoId);
+
+        if (!$detalleComandaPlato) {
+            return new JsonResponse(['success' => false]);
+        }
+
+        $detalleComandaPlato->setFinalizado(true);
+        $entityManager->flush();
+
+        return new JsonResponse(['success' => true]);
     }
 }

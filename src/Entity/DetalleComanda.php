@@ -6,6 +6,7 @@ use App\Repository\DetalleComandaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: DetalleComandaRepository::class)]
 class DetalleComanda
@@ -19,6 +20,7 @@ class DetalleComanda
     private ?Comanda $comanda = null;
 
     #[ORM\OneToMany(mappedBy: 'detalleComanda', targetEntity: DetalleComandaPlato::class, cascade: ['persist'])]
+    #[Groups("detalleComanda")]
     private Collection $DetalleComandaPlato;
 
     #[ORM\OneToMany(mappedBy: 'detalleComanda', targetEntity: DetalleComandaBebida::class, cascade: ['persist'])]

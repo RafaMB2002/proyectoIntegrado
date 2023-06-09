@@ -22250,6 +22250,14 @@ p {
   text-align: right;
 }
 
+.plato-finalizado {
+  text-decoration: line-through;
+}
+
+.card-small {
+  max-width: 400px;
+}
+
 @font-face {
   font-family: "dacherry";
   src: url("/public/css/fonts/Dacherry.ttf") format("truetype");
