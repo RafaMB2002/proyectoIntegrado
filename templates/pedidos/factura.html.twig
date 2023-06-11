@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <body class="container-factura">
+    <div class="invoice-wrapper">
+        <div class="invoice-header">
+        <h1>Factura de la mesa
+			{{ comanda.mesa.id }}</h1>
+            {% set fechaHoraActual = now() %}
+            <p>Fecha: {{ fechaHoraActual.format('d/m/Y H:i:s') }}</p>
+        </div>
+		
+
+		<table class="invoice-table">
+			<thead>
+				<tr>
+					<th>Unidad</th>
+                    <th>Nombre</th>
+					<th>PVP</th>
+                    <th>Importe</th>
+				</tr>
+			</thead>
+			<tbody>
+                {% for detalleComanda in comanda.getDetalleComanda %}
+                    {% for detalleComandaPlato in detalleComanda.getDetalleComandaPlato %}
+                        <tr>
+                            <td>x{{ detalleComandaPlato.cantidad }}</td>
+                            <td>{{ detalleComandaPlato.getPlato.nombre }}</td>
+                            <td>{{ detalleComandaPlato.getPlato.precio }}€</td>
+                            <td>{{ detalleComandaPlato.getPlato.precio * detalleComandaPlato.cantidad}}€</td>
+                        <tr>
+                    {% endfor %}
+                    {% for detalleComandaBebida in detalleComanda.getDetalleComandaBebida %}
+                        <tr>
+                            <td>x{{ detalleComandaBebida.cantidad }}</td>
+                            <td>{{ detalleComandaBebida.getBebida.nombre }}</td>
+                            <td>{{ detalleComandaBebida.getBebida.precio }}€</td>
+                            <td>{{ detalleComandaBebida.getBebida.precio * detalleComandaBebida.cantidad}}€</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+			</tbody>
+			<tfoot>
+				<tr class="total-row">
+					<td colspan="3">Total (iva incluido) :</td>
+					<td>{{ comanda.precioTotal }}€</td>
+				</tr>
+			</tfoot>
+		</table>
+        <div class="invoice-footer">
+                <p>Bar Piscina la Calle Nueva</p>
+                <p>Cerro de las olivillas, S/N, 23746 Lahiguera, Jaen</p>
+                <p>Teléfono: 610334722</p>
+            </div>
+        </div>
+	</body>
+{% endblock %}
+	

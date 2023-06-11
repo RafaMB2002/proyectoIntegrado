@@ -22,6 +22,14 @@ class DetalleComandaBebida
     #[ORM\ManyToOne(inversedBy: 'DetalleComandaBebida')]
     private ?Bebida $bebida = null;
 
+    #[ORM\Column]
+    private ?bool $entregado = null;
+
+    public function __construct()
+    {
+        $this->entregado = false;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +67,18 @@ class DetalleComandaBebida
     public function setBebida(?Bebida $bebida): self
     {
         $this->bebida = $bebida;
+
+        return $this;
+    }
+
+    public function isEntregado(): ?bool
+    {
+        return $this->entregado;
+    }
+
+    public function setEntregado(bool $entregado): static
+    {
+        $this->entregado = $entregado;
 
         return $this;
     }

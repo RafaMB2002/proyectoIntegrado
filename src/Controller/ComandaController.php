@@ -4,12 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Comanda;
 use App\Entity\DetalleComanda;
+use App\Entity\DetalleComandaBebida;
 use App\Entity\DetalleComandaPlato;
 use App\Entity\Mesa;
 use App\Entity\Plato;
 use App\Entity\Trabajador;
 use App\Repository\BebidaRepository;
 use App\Repository\ComandaRepository;
+use App\Repository\DetalleComandaBebidaRepository;
 use App\Repository\DetalleComandaPlatoRepository;
 use App\Repository\DetalleComandaRepository;
 use App\Repository\MesaRepository;
@@ -142,6 +144,28 @@ class ComandaController extends AbstractController
         return $this->json($data);
     }
 
+    public function calcularTotal($id)
+    {
+        $precios = [];
+        $comanda = $this->comandaRepository->find($id);
+        foreach ($comanda->getDetalleComanda() as $detalleComanda) {
+            foreach ($detalleComanda->getDetalleComandaPlato() as $detalleComandaPlato) {
+                for ($i = 0; $i < $detalleComandaPlato->getCantidad(); $i++) {
+                    array_push($precios, $detalleComandaPlato->getPlato()->getPrecio());
+                }
+            }
+            foreach ($detalleComanda->getDetalleComandaBebida() as $detalleComandaBebida) {
+                for ($i = 0; $i < $detalleComandaBebida->getCantidad(); $i++) {
+                    array_push($precios, $detalleComandaBebida->getBebida()->getPrecio());
+                }
+            }
+        }
+
+        $preciosTotal = array_sum($precios);
+
+        return $preciosTotal;
+    }
+
     #[Route('/comandas/{id}', name: 'finalizar_comanda_by_id', methods: 'PATCH')]
     public function finalizarComandaPorId(Request $request, EntityManagerInterface $entityManager, ComandaRepository $comandaRepository, $id): JsonResponse
     {
@@ -156,6 +180,7 @@ class ComandaController extends AbstractController
         // Actualizar solo los campos proporcionados en la solicitud PATCH
         if (isset($data['fechaHoraFin'])) {
             $comanda->setFechaHoraFin(new DateTime($data['fechaHoraFin']));
+            $comanda->setPrecioTotal($this->calcularTotal($id));
 
             // Persistir los cambios en la base de datos
             $entityManager->flush();
@@ -260,17 +285,16 @@ class ComandaController extends AbstractController
             'idDetalleComanda' => $detalleComanda->getId()
         ]);
     }
+
     #[Route('/comandas2', name: 'comandas_cocina')]
     public function comandas2(EntityManagerInterface $entityManager, DetalleComandaPlatoRepository $detalleComandaPlatoRepository): Response
     {
 
         // Consulta para obtener las comandas activas con sus platos
         $query = $entityManager->createQuery('
-        SELECT c, dc, dcp, p
+        SELECT c, dc
         FROM App\Entity\Comanda c
         JOIN c.DetalleComanda dc
-        join dc.DetalleComandaPlato dcp
-        JOIN dcp.plato p
         WHERE c.FechaHoraFin IS NULL
 ');
 
@@ -285,15 +309,51 @@ class ComandaController extends AbstractController
         ]);
     }
 
+    #[Route('/comandas3', name: 'comandas_camarero')]
+    public function comandas3(EntityManagerInterface $entityManager, DetalleComandaPlatoRepository $detalleComandaPlatoRepository, DetalleComandaBebidaRepository $detalleComandaBebidaRepository): Response
+    {
+
+        // Consulta para obtener las comandas activas con sus platos
+        $query = $entityManager->createQuery('
+        SELECT c, dc
+        FROM App\Entity\Comanda c
+        JOIN c.DetalleComanda dc
+        WHERE c.FechaHoraFin IS NULL
+');
+
+        // Ejecutar la consulta y obtener los resultados
+        $comandas = $query->getResult();
+
+        $detalleComandaPlato = $detalleComandaPlatoRepository->findAll();
+        $detalleComandaBebida = $detalleComandaBebidaRepository->findAll();
+
+        return $this->render('comanda/comandas_disponibles_camarero.html.twig', [
+            'comandas' => $comandas,
+            'numDetalleComandaPlato' => count($detalleComandaPlato),
+            'numDetalleComandaBebida' => count($detalleComandaBebida)
+        ]);
+    }
+
     #[Route('/obtener-comandas', name: 'obtener-comandas')]
-    public function obtenerComandas(EntityManagerInterface $entityManager, DetalleComandaPlatoRepository $detalleComandaPlatoRepository, SerializerInterface $serializerInterface): JsonResponse
+    public function obtenerComandas(EntityManagerInterface $entityManager, DetalleComandaPlatoRepository $detalleComandaPlatoRepository): JsonResponse
     {
 
         $detalleComandaPlato = $detalleComandaPlatoRepository->findAll();
-        
+
 
         // Devolver las comandas serializadas como respuesta JSON
         return new JsonResponse(count($detalleComandaPlato), 200, [], true);
+    }
+
+    #[Route('/obtener-comandas-camarero', name: 'obtener-comandas-camarero')]
+    public function obtenerComandasCamarero(EntityManagerInterface $entityManager, DetalleComandaBebidaRepository $detalleComandaBebidaRepository): JsonResponse
+    {
+
+        $detalleComandaBebida = $detalleComandaBebidaRepository->findAll();
+
+
+        // Devolver las comandas serializadas como respuesta JSON
+        return new JsonResponse(count($detalleComandaBebida), 200, [], true);
     }
 
 
@@ -310,6 +370,23 @@ class ComandaController extends AbstractController
         }
 
         $detalleComandaPlato->setFinalizado(true);
+        $entityManager->flush();
+
+        return new JsonResponse(['success' => true]);
+    }
+
+    #[Route('/marcar-entregar-bebida', name: 'entregar', methods: 'POST')]
+    public function marcarEntregar(Request $request, EntityManagerInterface $entityManager)
+    {
+        $bebidaId = $request->request->get('id');
+
+        $detalleComandaBebida = $entityManager->getRepository(DetalleComandaBebida::class)->find($bebidaId);
+
+        if (!$detalleComandaBebida) {
+            return new JsonResponse(['success' => false]);
+        }
+
+        $detalleComandaBebida->setEntregado(true);
         $entityManager->flush();
 
         return new JsonResponse(['success' => true]);

@@ -33,8 +33,10 @@
 						<td>
 							{% if comanda.fechaHoraFin is null %}
 								<button class="btn btn-primary finalizar-comanda" data-comanda-id="{{ comanda.id }}">Finalizar</button>
+								
 							{% else %}
 								Finalizada
+								<button class="btn btn-success imprimir-factura" data-comanda-id="{{ comanda.id }}">Imprimir</button>
 							{% endif %}
 						</td>
 					</tr>

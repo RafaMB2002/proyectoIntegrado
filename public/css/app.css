@@ -22258,6 +22258,61 @@ p {
   max-width: 400px;
 }
 
+.btn.imprimir-factura {
+  margin-left: 5px;
+}
+
+@media print {
+  .container-factura body {
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+  }
+  .container-factura .invoice-wrapper {
+    padding: 10px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  .container-factura .invoice-header {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .container-factura .invoice-header h1, .container-factura .invoice-header .h1 {
+    font-size: 18px;
+    margin: 0;
+  }
+  .container-factura .invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .container-factura .invoice-table th,
+  .container-factura .invoice-table td {
+    border: none;
+  }
+  .container-factura .invoice-table .total-row td {
+    border-top: 1px solid black;
+  }
+}
+.container-factura table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.container-factura table th,
+.container-factura table td {
+  border: 1px solid black;
+  padding: 8px;
+}
+.container-factura table th {
+  background-color: lightgray;
+}
+.container-factura table .total-row {
+  font-weight: bold;
+}
+.container-factura table .pvp-column {
+  white-space: nowrap;
+}
+
 @font-face {
   font-family: "dacherry";
   src: url("/public/css/fonts/Dacherry.ttf") format("truetype");

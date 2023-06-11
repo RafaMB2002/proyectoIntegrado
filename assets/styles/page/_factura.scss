@@ -1,0 +1,63 @@
+.container-factura {
+    @media print {
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .invoice-wrapper {
+            padding: 10px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .invoice-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .invoice-header h1 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+
+            th,
+            td {
+                border: none;
+            }
+
+            .total-row td {
+                border-top: 1px solid black;
+            }
+        }
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: lightgray;
+        }
+
+        .total-row {
+            font-weight: bold;
+        }
+
+        .pvp-column {
+            white-space: nowrap;
+        }
+    }
+}

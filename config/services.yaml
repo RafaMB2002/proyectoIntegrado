@@ -26,3 +26,6 @@ services:
         tags: ['validator.constraint_validator']
     app\Validator\Dni: ~
     App\Entity\DetalleComandaPlato: ~
+    App\Twig\MisExtensionesTwig:
+        tags:
+            - { name: twig.extension }
