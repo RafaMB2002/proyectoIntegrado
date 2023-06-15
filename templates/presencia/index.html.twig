@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PresenciaController!{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+        <h1>Fichaje de entrada y salida</h1>
+        
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <h2>Fichar entrada</h2>
+                <form id="ficharEntradaForm">
+                    <div class="form-group">
+                        <label for="dniEntrada">DNI:</label>
+                        <input type="text" class="form-control" id="dniEntrada" name="dniEntrada">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Fichar entrada</button>
+                </form>
+            </div>
+            
+            <div class="col-md-6">
+                <h2>Fichar salida</h2>
+                <form id="ficharSalidaForm">
+                    <div class="form-group">
+                        <label for="dniSalida">DNI:</label>
+                        <input type="text" class="form-control" id="dniSalida" name="dniSalida">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Fichar salida</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

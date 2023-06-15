@@ -391,4 +391,21 @@ class ComandaController extends AbstractController
 
         return new JsonResponse(['success' => true]);
     }
+
+    #[Route('/marcar-entregar-plato', name: 'entregar-plato', methods: 'POST')]
+    public function marcarEntregarPlato(Request $request, EntityManagerInterface $entityManager)
+    {
+        $platoId = $request->request->get('id');
+
+        $detalleComandaPlato = $entityManager->getRepository(DetalleComandaPlato::class)->find($platoId);
+
+        if (!$detalleComandaPlato) {
+            return new JsonResponse(['success' => false]);
+        }
+
+        $detalleComandaPlato->setEntregado(true);
+        $entityManager->flush();
+
+        return new JsonResponse(['success' => true]);
+    }
 }

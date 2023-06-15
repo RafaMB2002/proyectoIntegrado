@@ -31,9 +31,13 @@ class DetalleComandaPlato
     #[ORM\Column]
     private ?bool $finalizado = null;
 
+    #[ORM\Column]
+    private ?bool $entregado = null;
+
     public function __construct()
     {
         $this->finalizado = false;
+        $this->entregado = false;
     }
 
     public function getId(): ?int
@@ -85,6 +89,18 @@ class DetalleComandaPlato
     public function setFinalizado(bool $finalizado): static
     {
         $this->finalizado = $finalizado;
+
+        return $this;
+    }
+
+    public function isEntregado(): ?bool
+    {
+        return $this->entregado;
+    }
+
+    public function setEntregado(bool $entregado): static
+    {
+        $this->entregado = $entregado;
 
         return $this;
     }

@@ -1,8 +1,11 @@
 @import "~bootstrap/scss/bootstrap";
+@import "partials/_leaflet.scss";
 @import "_styles.scss";
 @import "page/qr";
 @import "page/pedidos";
 @import "page/comandasCocina";
 @import "page/finalizarComanda";
 @import "page/factura";
+@import "page/landingPage";
+@import "page/carta";
 @import "font/fuentes";

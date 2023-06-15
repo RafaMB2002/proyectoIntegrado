@@ -1,0 +1,14 @@
+.carousel-item img {
+    height: 300px;
+    /* Ajusta la altura deseada */
+    object-fit: cover;
+}
+
+.username-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.username-item {
+    margin-left: auto;
+}

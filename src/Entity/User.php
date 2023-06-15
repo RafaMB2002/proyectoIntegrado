@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -35,6 +37,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $apellidos = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Presencia::class)]
+    private Collection $Presencia;
+
+    public function __construct()
+    {
+        $this->Presencia = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,6 +148,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setApellidos(string $apellidos): self
     {
         $this->apellidos = $apellidos;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, presencia>
+     */
+    public function getPresencia(): Collection
+    {
+        return $this->Presencia;
+    }
+
+    public function addPresencium(presencia $presencium): static
+    {
+        if (!$this->Presencia->contains($presencium)) {
+            $this->Presencia->add($presencium);
+            $presencium->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePresencium(presencia $presencium): static
+    {
+        if ($this->Presencia->removeElement($presencium)) {
+            // set the owning side to null (unless already changed)
+            if ($presencium->getUser() === $this) {
+                $presencium->setUser(null);
+            }
+        }
 
         return $this;
     }

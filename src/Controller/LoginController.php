@@ -16,12 +16,19 @@ use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
 
 class LoginController extends AbstractController
 {
-    #[Route('/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
-    {
-        $error = $authenticationUtils->getLastAuthenticationError();
+    private $authenticationUtils;
 
-        $lastUsername = $authenticationUtils->getLastUsername();
+    public function __construct(AuthenticationUtils $authenticationUtils)
+    {
+        $this->authenticationUtils = $authenticationUtils;
+    }
+
+    #[Route('/login', name: 'app_login')]
+    public function login(): Response
+    {
+        $error = $this->authenticationUtils->getLastAuthenticationError();
+
+        $lastUsername = $this->authenticationUtils->getLastUsername();
 
         return $this->render('login/login.html.twig', [
             'last_username' => $lastUsername,
@@ -79,10 +86,9 @@ class LoginController extends AbstractController
         }
     } */
 
-    #[Route('/logout', name: 'logout')]
-    public function logout(): RedirectResponse
+    #[Route('/logout', name: 'app_logout')]
+    public function logout(): never
     {
-
-        return $this->redirectToRoute('app_login');
+        throw new \Exception('Don\'t forget to activate logout in security.yaml');
     }
 }

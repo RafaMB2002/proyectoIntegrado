@@ -16,3 +16,7 @@ app_logout:
     path: /logout
     controller: App\Controller\LoginController::logout
 
+cerrar_sesion:
+    path: /cerrar-sesion
+    controller: App\Controller\NombreDelControlador::cerrarSesion
+

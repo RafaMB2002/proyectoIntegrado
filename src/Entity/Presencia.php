@@ -17,11 +17,14 @@ class Presencia
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $FechaHoraEntrada = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $FechaHoraSalida = null;
 
     #[ORM\ManyToOne(inversedBy: 'presencias')]
     private ?Trabajador $Trabajador = null;
+
+    #[ORM\ManyToOne(inversedBy: 'Presencia')]
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -60,6 +63,18 @@ class Presencia
     public function setTrabajador(?Trabajador $Trabajador): self
     {
         $this->Trabajador = $Trabajador;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

@@ -5,29 +5,15 @@
 
 {% block body %}
 	<div
-		class="container">
-		{# <nav class="navbar navbar-expand-lg navbar-dark">
-						  <a class="navbar-brand" href="{{path('homepage')}}">Carta Bar Piscina la Calle Nueva</a>
-						  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-						    <span class="navbar-toggler-icon"></span>
-						  </button>
-						  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-						    <ul class="navbar-nav">
-						      <li class="nav-item">
-						        <a class="nav-link" href="#" id="carrito-modal-ya">
-						          <i class="fas fa-shopping-cart fa-lg"></i>
-						        </a>
-						      </li>
-						    </ul>
-						  </div>
-						</nav> #}
+		class="container-fluid">
+		
 		<div
 			class="row">
 			{# PLATOS #}
 			<div
 				class="col-md-6">
 				{# PICAR #}
-				<h2 style="color: #e0ccb4;">Para picar</h2>
+				<h2 style="color: #332723">Para picar</h2>
 				<ul class="list-group">
 					{% for plato in platos %}
 						{% if plato.tipo == 'Picar' %}
@@ -40,7 +26,7 @@
 					{% endfor %}
 				</ul>
 				{# PESCADO Y MARICO #}
-				<h2 style="color: #e0ccb4;">Pescados y Mariscos</h2>
+				<h2 style="color: #332723">Pescados y Mariscos</h2>
 				<ul class="list-group">
 					{% for plato in platos %}
 						{% if plato.tipo == 'Pescado-Marisco' %}
@@ -53,7 +39,7 @@
 					{% endfor %}
 				</ul>
 				{# CARNE #}
-				<h2 style="color: #e0ccb4;">Carnes</h2>
+				<h2 style="color: #332723">Carnes</h2>
 				<ul class="list-group">
 					{% for plato in platos %}
 						{% if plato.tipo == 'Carne' %}
@@ -66,7 +52,7 @@
 					{% endfor %}
 				</ul>
 				{# BAGUETTE Y ALPARGATA #}
-				<h2 style="color: #e0ccb4;">Baguettes y Alpargatas</h2>
+				<h2 style="color: #332723">Baguettes y Alpargatas</h2>
 				<ul class="list-group">
 					{% for plato in platos %}
 						{% if plato.tipo == 'Baguette-Alpargata' %}
@@ -79,7 +65,7 @@
 					{% endfor %}
 				</ul>
 				{# ROSCAS #}
-				<h2 style="color: #e0ccb4;">Roscas</h2>
+				<h2 style="color: #332723">Roscas</h2>
 				<ul class="list-group">
 					{% for plato in platos %}
 						{% if plato.tipo == 'Rosca' %}
@@ -92,7 +78,7 @@
 					{% endfor %}
 				</ul>
 				{# HABURGUESA #}
-				<h2 style="color: #e0ccb4;">Hamburguesas</h2>
+				<h2 style="color: #332723">Hamburguesas</h2>
 				<ul class="list-group">
 					{% for plato in platos %}
 						{% if plato.tipo == 'Hamburguesa' %}
@@ -105,7 +91,7 @@
 					{% endfor %}
 				</ul>
 				{# SANDWICH #}
-				<h2 style="color: #e0ccb4;">Sandwiches</h2>
+				<h2 style="color: #332723">Sandwiches</h2>
 				<ul class="list-group">
 					{% for plato in platos %}
 						{% if plato.tipo == 'Sandwich' %}
@@ -118,7 +104,7 @@
 					{% endfor %}
 				</ul>
 				{# PEQUES #}
-				<h2 style="color: #e0ccb4;">Para los peques</h2>
+				<h2 style="color: #332723">Para los peques</h2>
 				<ul class="list-group">
 					{% for plato in platos %}
 						{% if plato.tipo == 'Peques' %}
@@ -131,7 +117,7 @@
 					{% endfor %}
 				</ul>
 				{# POSTRE #}
-				<h2 style="color: #e0ccb4;">Postres</h2>
+				<h2 style="color: #332723">Postres</h2>
 				<ul class="list-group">
 					{% for plato in platos %}
 						{% if plato.tipo == 'Postre' %}
@@ -146,7 +132,7 @@
 			</div>
 			{# BEBIDAS #}
 			<div class="col-md-6">
-				<h2 style="color: #e0ccb4;">Bebidas</h2>
+				<h2 style="color: #332723">Bebidas</h2>
 				<ul class="list-group">
 					{% for bebida in bebidas %}
 						<li class="list-group-item">

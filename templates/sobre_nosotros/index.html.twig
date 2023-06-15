@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sobre nosotros
+{% endblock %}
+
+{% block body %}
+	 <div class="container">
+        <h1 class="text-center mt-4">Información del Bar</h1>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <img class="worker-photo img-fluid d-block mt-4 mx-auto" src="/images/portada1.jpg" alt="Foto de los trabajadores">
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <section class="page-section cta">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-9 mx-auto">
+					<div class="cta-inner bg-faded text-center rounded">
+						<h2 class="section-heading mb-4">
+							<span class="section-heading-upper">Contacto</span>
+						</h2>
+						<p class="mb-0">Telefono: {{datos.telefono}}</p>
+                        <p class="mb-0">Correo: {{datos.correo}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mt-4">
+            <div class="col-md-12">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3145.1854891274875!2d-3.998869823630142!3d37.97280030072761!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6c35b9a23f61dd%3A0x8395184da39553c1!2sBar%20Piscina%20%22%20La%20Calle%20Nueva%22!5e0!3m2!1ses!2ses!4v1686836621850!5m2!1ses!2ses" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
