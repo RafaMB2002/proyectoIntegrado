@@ -27,10 +27,8 @@ class TrabajadorController extends AbstractController
             ->setApellidos($apellidos)
             ->setDNI($dni);
 
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
         $entityManager->persist($trabajador);
 
-        // actually executes the queries (i.e. the INSERT query)
         $entityManager->flush();
 
         return $this->json(['message' => 'Trabajador creado', 'id' => $trabajador->getId()]);

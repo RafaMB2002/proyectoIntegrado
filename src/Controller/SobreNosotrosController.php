@@ -8,6 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SobreNosotrosController extends AbstractController
 {
+    /**
+     * Controlador que te lleva a la pagina de sobre nosotros
+     */
     #[Route('/sobre/nosotros', name: 'app_sobre_nosotros')]
     public function index(): Response
     {

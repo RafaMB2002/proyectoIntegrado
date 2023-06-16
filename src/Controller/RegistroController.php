@@ -30,7 +30,14 @@ class RegistroController extends AbstractController
             'error' => $error,
         ]);
     }
-    
+
+    /**
+     * @param Request $request para la peticion HTTP
+     * @param EntityManagerInterface $entityManagerInterface
+     * @param UserPasswordHasherInterface $userPasswordHasherInterface
+     * @param AuthenticationUtils $authenticationUtils
+     * @param RegistroFormType $form
+     */
     #[Route('/registro/procesar', name: 'registro_procesar', methods: 'POST')]
     public function procesarRegistro(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, AuthenticationUtils $authenticationUtils, RegistroFormType $form)
     {
