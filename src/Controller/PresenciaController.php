@@ -15,6 +15,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PresenciaController extends AbstractController
 {
+    /**
+     * Me lleva a la plantilla de presencia
+     */
     #[Route('/presencia', name: 'app_presencia')]
     public function index(): Response
     {
@@ -23,7 +26,12 @@ class PresenciaController extends AbstractController
         ]);
     }
 
-    #[Route('/guardar-ficha-entrada', name: 'guardar_ficha_entrada', methods:'POST')]
+    /**
+     * @param Request $request
+     * @param UserRepository $userRepository repositorio de la entidad user
+     * @param EntityManagerInterface $entityManagerInterface  
+     */
+    #[Route('/guardar-ficha-entrada', name: 'guardar_ficha_entrada', methods: 'POST')]
     public function guardarFichaEntrada(Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
         $data = json_decode($request->getContent(), true);
@@ -42,7 +50,13 @@ class PresenciaController extends AbstractController
         return new Response('Ficha de entrada guardada correctamente');
     }
 
-    #[Route('/guardar-ficha-salida', name: 'guardar_ficha_salida', methods:'POST')]
+    /**
+     * @param Request $request
+     * @param UserRepository $userRepository repositorio de la entidad user
+     * @param EntityManagerInterface $entityManagerInterface  
+     * @param PresenciaRepository $presenciaRepository Repositorio de la entidad presencia
+     */
+    #[Route('/guardar-ficha-salida', name: 'guardar_ficha_salida', methods: 'POST')]
     public function guardarFichaSalida(Request $request, UserRepository $userRepository, PresenciaRepository $presenciaRepository, EntityManagerInterface $entityManager): Response
     {
 

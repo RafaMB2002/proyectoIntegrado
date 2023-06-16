@@ -13,11 +13,17 @@ class PedidosController extends AbstractController
 {
 
     private $comandaRepository;
-
+    /**
+     * Constructor
+     * @param ComandaRepository $comandaRepository repositorio de la entidad comanda
+     */
     public function __construct(ComandaRepository $comandaRepository)
     {
         $this->comandaRepository = $comandaRepository;
     }
+    /**
+     * Me lleva a la plantilla que genera el QR
+     */
     #[Route('/generarQR', name: 'generarQR')]
     public function generarQR(): Response
     {
@@ -26,6 +32,10 @@ class PedidosController extends AbstractController
         ]);
     }
 
+    /**
+     * Me lleva a la plantilla para finalizar las comandas
+     * Obtengo todas las comandas desde el repositorio
+     */
     #[Route('/finalizarComanda', name: 'finalizarComanda')]
     public function finalizarComanda(): Response
     {
@@ -37,6 +47,10 @@ class PedidosController extends AbstractController
         ]);
     }
 
+    /**
+     * Funcion para imprimir una factura
+     * Obtengo una comanda por ID
+     */
     #[Route('/factura/{id}', name: 'factura', methods:'get')]
     public function imprimirFactura($id): Response
     {

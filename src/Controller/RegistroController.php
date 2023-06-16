@@ -16,8 +16,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class RegistroController extends AbstractController
 {
+    /**
+     * @param AuthenticationUtils $authenticationsUtils Libreria para para logear a un usuario
+     */
     #[Route('/registro', name: 'registro')]
-    public function registro(Request $request, AuthenticationUtils $authenticationUtils): Response
+    public function registro(AuthenticationUtils $authenticationUtils): Response
     {
         $form = $this->createForm(RegistroFormType::class);
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -27,7 +30,7 @@ class RegistroController extends AbstractController
             'error' => $error,
         ]);
     }
-
+    
     #[Route('/registro/procesar', name: 'registro_procesar', methods: 'POST')]
     public function procesarRegistro(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, AuthenticationUtils $authenticationUtils, RegistroFormType $form)
     {

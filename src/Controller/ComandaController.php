@@ -70,7 +70,7 @@ class ComandaController extends AbstractController
      * @param int $mesaId ID de la mesa.
      * @return bool Devuelve true si ya existe una comanda activa para la mesa, false en caso contrario.
      */
-    public function comandaExist($fechaHoraInicio, $idMesa)
+    public function comandaExist($idMesa)
     {
         $bool = true;
 
@@ -88,7 +88,12 @@ class ComandaController extends AbstractController
 
         return $bool;
     }
-
+    /**
+     * Crea una nueva comanda.
+     * 
+     * @param Request $request Solicitud HTTP.
+     * @return JsonResponse Respuesta en formato JSON.
+     */
     #[Route('/comandas', name: 'new_comanda', methods: 'POST')]
     public function crearComanda(Request $request, EntityManagerInterface $entityManager, TrabajadorRepository $trabajadorRepository): JsonResponse
     {
@@ -116,9 +121,13 @@ class ComandaController extends AbstractController
             return $this->json(['ocupado' => 0, 'message' => 'Comanda creada', 'id' => $comanda->getId(), 'mesaId' => $comanda->getMesa()->getId()]);
         }
     }
-
+    /**
+     * Lista todas las comandas.
+     * 
+     * @return JsonResponse Respuesta en formato JSON con las comandas.
+     */
     #[Route('/comandas', name: 'get_all_comandas', methods: 'GET')]
-    public function listarComandas(EntityManagerInterface $entityManager, ComandaRepository $comandaRepository): JsonResponse
+    public function listarComandas(ComandaRepository $comandaRepository): JsonResponse
     {
         $comandas = $comandaRepository->findAll();
         $data = [];
@@ -136,9 +145,15 @@ class ComandaController extends AbstractController
 
         return $this->json($data);
     }
-
+    /**
+     * Obtiene una comanda por su ID.
+     *
+     * @param ComandaRepository $comandaRepository Repositorio de comandas.
+     * @param int               $id                 ID de la comanda a obtener.
+     * @return JsonResponse Respuesta en formato JSON con los detalles de la comanda.
+     */
     #[Route('/comandas/{id}', name: 'get_comanda_by_id', methods: 'GET')]
-    public function obtenerComandaPorId(EntityManagerInterface $entityManager, ComandaRepository $comandaRepository, $id): JsonResponse
+    public function obtenerComandaPorId(ComandaRepository $comandaRepository, $id): JsonResponse
     {
         $comanda = $comandaRepository->find($id);
 
@@ -157,7 +172,12 @@ class ComandaController extends AbstractController
 
         return $this->json($data);
     }
-
+    /**
+     * Calcula el precio total de una comanda.
+     *
+     * @param int $id ID de la comanda.
+     * @return float Precio total de la comanda.
+     */
     public function calcularTotal($id)
     {
         $precios = [];
@@ -179,7 +199,15 @@ class ComandaController extends AbstractController
 
         return $preciosTotal;
     }
-
+    /**
+     * Finaliza una comanda por su ID.
+     *
+     * @param Request $request Objeto de solicitud HTTP.
+     * @param EntityManagerInterface $entityManager Objeto de administración de entidades.
+     * @param ComandaRepository $comandaRepository Repositorio de comandas.
+     * @param int $id ID de la comanda.
+     * @return JsonResponse Respuesta JSON con el resultado de la finalización de la comanda.
+     */
     #[Route('/comandas/{id}', name: 'finalizar_comanda_by_id', methods: 'PATCH')]
     public function finalizarComandaPorId(Request $request, EntityManagerInterface $entityManager, ComandaRepository $comandaRepository, $id): JsonResponse
     {
@@ -206,6 +234,14 @@ class ComandaController extends AbstractController
         }
     }
 
+    /**
+     * Agrega platos a un detalle de comanda por su ID.
+     *
+     * @param Request $request Objeto de solicitud HTTP.
+     * @param EntityManagerInterface $entityManager Objeto de administración de entidades.
+     * @param int $id ID del detalle de comanda.
+     * @return JsonResponse Respuesta JSON con el resultado de la operación.
+     */
     #[Route('/addPlatos/{id}', name: 'add_detalle_comanda_platos', methods: 'PATCH')]
     public function addDetalleComandaPlatos(Request $request, EntityManagerInterface $entityManager, int $id): JsonResponse
     {
@@ -223,6 +259,14 @@ class ComandaController extends AbstractController
         return new JsonResponse(['message' => 'Platos agregados a la comanda'], 201);
     }
 
+    /**
+     * Agrega bebidas a un detalle de comanda por su ID.
+     *
+     * @param Request $request Objeto de solicitud HTTP.
+     * @param EntityManagerInterface $entityManager Objeto de administración de entidades.
+     * @param int $id ID del detalle de comanda.
+     * @return JsonResponse Respuesta JSON con el resultado de la operación.
+     */
     #[Route('/addBebidas/{id}', name: 'add_detalle_comanda_bebidas', methods: 'PATCH')]
     public function addDetalleComandabebidas(Request $request, EntityManagerInterface $entityManager, int $id): JsonResponse
     {
@@ -240,8 +284,18 @@ class ComandaController extends AbstractController
         return new JsonResponse(['message' => 'Bebidas agregadas a la comanda'], 201);
     }
 
+    /**
+     * Obtiene los platos de una comanda por su ID.
+     *
+     * @param ComandaRepository $comandaRepository Repositorio de comandas.
+     * @param DetalleComandaRepository $detalleComandaRepository Repositorio de detalles de comanda.
+     * @param PlatoRepository $platoRepository Repositorio de platos.
+     * @param EntityManagerInterface $entityManager Objeto de administración de entidades.
+     * @param int $id ID de la comanda.
+     * @return Response Respuesta con los platos de la comanda.
+     */
     #[Route('/getPlatos/{id}', name: 'get_platos', methods: 'GET')]
-    public function getPlatos(ComandaRepository $comandaRepository, DetalleComandaRepository $detalleComandaRepository, PlatoRepository $platoRepository, EntityManagerInterface $entityManager, BebidaRepository $bebidaRepository, $id): Response
+    public function getPlatos(ComandaRepository $comandaRepository, $id): Response
     {
         $platos = [];
         $comanda = $comandaRepository->find($id);
@@ -260,8 +314,18 @@ class ComandaController extends AbstractController
         return new Response('Hecho!');
     }
 
+    /**
+     * Obtiene las bebidas de una comanda por su ID.
+     *
+     * @param ComandaRepository $comandaRepository Repositorio de comandas.
+     * @param DetalleComandaRepository $detalleComandaRepository Repositorio de detalles de comanda.
+     * @param EntityManagerInterface $entityManager Objeto de administración de entidades.
+     * @param BebidaRepository $bebidaRepository Repositorio de bebidas.
+     * @param int $id ID de la comanda.
+     * @return Response Respuesta con los platos de la comanda.
+     */
     #[Route('/getBebidas/{id}', name: 'get_bebidas', methods: 'GET')]
-    public function getBebidas(ComandaRepository $comandaRepository, DetalleComandaRepository $detalleComandaRepository, PlatoRepository $platoRepository, EntityManagerInterface $entityManager, BebidaRepository $bebidaRepository, $id): Response
+    public function getBebidas(ComandaRepository $comandaRepository, $id): Response
     {
         $bebidas = [];
         $comanda = $comandaRepository->find($id);
@@ -279,7 +343,12 @@ class ComandaController extends AbstractController
 
         return new Response('Hecho!');
     }
-
+    /**
+     * Crea un nuevo detalle de comanda y muestra la vista de pedidos.
+     *
+     * @param int $id ID de la comanda.
+     * @return Response Respuesta con la vista de pedidos y datos relacionados.
+     */
     #[Route('/crearDetalleComanda/{id}', name: 'crear_detalle_comanda', methods: 'GET')]
     public function createDetalleComanda($id)
     {
@@ -300,6 +369,13 @@ class ComandaController extends AbstractController
         ]);
     }
 
+    /**
+     * Muestra las comandas activas con sus platos en la cocina.
+     *
+     * @param EntityManagerInterface $entityManager Gestor de entidades.
+     * @param DetalleComandaPlatoRepository $detalleComandaPlatoRepository Repositorio de detalles de comanda de platos.
+     * @return Response Respuesta con la vista de las comandas disponibles en la cocina.
+     */
     #[Route('/comandas2', name: 'comandas_cocina')]
     public function comandas2(EntityManagerInterface $entityManager, DetalleComandaPlatoRepository $detalleComandaPlatoRepository): Response
     {
@@ -323,6 +399,14 @@ class ComandaController extends AbstractController
         ]);
     }
 
+    /**
+     * Muestra las comandas activas con sus platos y bebidas para el camarero.
+     *
+     * @param EntityManagerInterface $entityManager Gestor de entidades.
+     * @param DetalleComandaPlatoRepository $detalleComandaPlatoRepository Repositorio de detalles de comanda de platos.
+     * @param DetalleComandaBebidaRepository $detalleComandaBebidaRepository Repositorio de detalles de comanda de bebidas.
+     * @return Response Respuesta con la vista de las comandas disponibles para el camarero.
+     */
     #[Route('/comandas3', name: 'comandas_camarero')]
     public function comandas3(EntityManagerInterface $entityManager, DetalleComandaPlatoRepository $detalleComandaPlatoRepository, DetalleComandaBebidaRepository $detalleComandaBebidaRepository): Response
     {
@@ -348,6 +432,13 @@ class ComandaController extends AbstractController
         ]);
     }
 
+    /**
+     * Obtiene la cantidad de detalles de comanda de platos y devuelve la respuesta en formato JSON.
+     *
+     * @param EntityManagerInterface $entityManager Gestor de entidades.
+     * @param DetalleComandaPlatoRepository $detalleComandaPlatoRepository Repositorio de detalles de comanda de platos.
+     * @return JsonResponse Respuesta JSON con la cantidad de detalles de comanda de platos.
+     */
     #[Route('/obtener-comandas', name: 'obtener-comandas')]
     public function obtenerComandas(EntityManagerInterface $entityManager, DetalleComandaPlatoRepository $detalleComandaPlatoRepository): JsonResponse
     {
@@ -358,7 +449,13 @@ class ComandaController extends AbstractController
         // Devolver las comandas serializadas como respuesta JSON
         return new JsonResponse(count($detalleComandaPlato), 200, [], true);
     }
-
+    /**
+     * Obtiene la cantidad de detalles de comanda de bebidas y devuelve la respuesta en formato JSON.
+     *
+     * @param EntityManagerInterface $entityManager Gestor de entidades.
+     * @param DetalleComandaBebidaRepository $detalleComandaBebidaRepository Repositorio de detalles de comanda de bebidas.
+     * @return JsonResponse Respuesta JSON con la cantidad de detalles de comanda de bebidas.
+     */
     #[Route('/obtener-comandas-camarero', name: 'obtener-comandas-camarero')]
     public function obtenerComandasCamarero(EntityManagerInterface $entityManager, DetalleComandaBebidaRepository $detalleComandaBebidaRepository): JsonResponse
     {
@@ -371,7 +468,13 @@ class ComandaController extends AbstractController
     }
 
 
-
+    /**
+     * Marca un plato como finalizado en el detalle de la comanda.
+     *
+     * @param Request $request Objeto Request que contiene los datos de la solicitud.
+     * @param EntityManagerInterface $entityManager Gestor de entidades.
+     * @return JsonResponse Respuesta JSON indicando si la operación fue exitosa.
+     */
     #[Route('/marcar-finalizado', name: 'finalizar_comida', methods: 'POST')]
     public function marcarFinalizado(Request $request, EntityManagerInterface $entityManager)
     {
@@ -389,6 +492,13 @@ class ComandaController extends AbstractController
         return new JsonResponse(['success' => true]);
     }
 
+    /**
+     * Marca un plato como finalizado en el detalle de la comanda.
+     *
+     * @param Request $request Objeto Request que contiene los datos de la solicitud.
+     * @param EntityManagerInterface $entityManager Gestor de entidades.
+     * @return JsonResponse Respuesta JSON indicando si la operación fue exitosa.
+     */
     #[Route('/marcar-entregar-bebida', name: 'entregar', methods: 'POST')]
     public function marcarEntregar(Request $request, EntityManagerInterface $entityManager)
     {
@@ -406,6 +516,13 @@ class ComandaController extends AbstractController
         return new JsonResponse(['success' => true]);
     }
 
+    /**
+     * Marca un plato como entregado en el detalle de la comanda.
+     *
+     * @param Request $request Objeto Request que contiene los datos de la solicitud.
+     * @param EntityManagerInterface $entityManager Gestor de entidades.
+     * @return JsonResponse Respuesta JSON indicando si la operación fue exitosa.
+     */
     #[Route('/marcar-entregar-plato', name: 'entregar-plato', methods: 'POST')]
     public function marcarEntregarPlato(Request $request, EntityManagerInterface $entityManager)
     {

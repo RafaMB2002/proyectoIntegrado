@@ -10,6 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ListadoController extends AbstractController
 {
+    /**
+     * Muestra el listado de platos.
+     *
+     * @param PlatoRepository $platoRepository Repositorio de platos.
+     * @return Response Respuesta HTTP que muestra el listado de platos.
+     */
     #[Route('/listadoPlatos', name: 'app_listado_platos')]
     public function listadoPlatos(PlatoRepository $platoRepository): Response
     {
@@ -19,6 +25,12 @@ class ListadoController extends AbstractController
         ]);
     }
 
+    /**
+     * Muestra el listado de platos.
+     *
+     * @param PlatoRepository $platoRepository Repositorio de platos.
+     * @return Response Respuesta HTTP que muestra el listado de platos.
+     */
     #[Route('/listadoBebidas', name: 'app_listado_bebidas')]
     public function listadoBebidas(BebidaRepository $bebidaRepository): Response
     {

@@ -12,6 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MesaController extends AbstractController
 {
+    /**
+     * Crea una nueva mesa.
+     *
+     * @Route("/mesa", name="create_mesa")
+     * @param EntityManagerInterface $entityManager Interfaz para administrar entidades en la base de datos.
+     * @return Response Respuesta HTTP indicando el éxito de la operación.
+     */
     #[Route('/mesa', name: 'create_mesa')]
     public function createMesa(EntityManagerInterface $entityManager): Response
     {
@@ -25,7 +32,16 @@ class MesaController extends AbstractController
 
         return new Response('Guardada nueva mesa con id ' . $mesa->getId());
     }
-
+    
+    /**
+     * Obtiene una mesa por su ID.
+     *
+     * @Route("/mesas/{id}", name="get_mesa_by_id", methods="GET")
+     * @param EntityManagerInterface $entityManager Interfaz para administrar entidades en la base de datos.
+     * @param MesaRepository $mesaRepository Repositorio de la entidad Mesa para realizar consultas.
+     * @param int $id ID de la mesa a obtener.
+     * @return JsonResponse Respuesta HTTP en formato JSON con los datos de la mesa encontrada.
+     */
     #[Route('/mesas/{id}', name: 'get_mesa_by_id', methods: 'GET')]
     public function obtenerMesaPorId(EntityManagerInterface $entityManager, MesaRepository $mesaRepository, $id): JsonResponse
     {
