@@ -30,6 +30,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
+/**
+ * Controlador para las comandas del bar
+ */
 class ComandaController extends AbstractController
 {
 
@@ -41,7 +44,15 @@ class ComandaController extends AbstractController
     private $entityManager;
     private $urlGenerator;
     private $detalleComandaPlato;
-
+    /**
+     * Constructor de la clase ComandaController.
+     * 
+     * @param ComandaRepository      $comandaRepository      Repositorio de comandas.
+     * @param MesaRepository         $mesaRepository         Repositorio de mesas.
+     * @param PlatoRepository        $platoRepository        Repositorio de platos.
+     * @param BebidaRepository       $bebidaRepository       Repositorio de bebidas.
+     * @param EntityManagerInterface $entityManager         EntityManager para administrar las entidades.
+     */
     public function __construct(ComandaRepository $comandaRepository, MesaRepository $mesaRepository, DetalleComandaRepository $detalleComandaRepository, PlatoRepository $platoRepository, BebidaRepository $bebidaRepository, EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, DetalleComandaPlato $detalleComandaPlato)
     {
         $this->comandaRepository = $comandaRepository;
@@ -53,7 +64,12 @@ class ComandaController extends AbstractController
         $this->urlGenerator = $urlGenerator;
         $this->detalleComandaPlato = $detalleComandaPlato;
     }
-
+    /**
+     * Verifica si ya existe una comanda activa para una mesa específica.
+     * 
+     * @param int $mesaId ID de la mesa.
+     * @return bool Devuelve true si ya existe una comanda activa para la mesa, false en caso contrario.
+     */
     public function comandaExist($fechaHoraInicio, $idMesa)
     {
         $bool = true;
@@ -65,8 +81,6 @@ class ComandaController extends AbstractController
             ->setParameter('mesaId', $idMesa)
             ->getQuery()
             ->getResult();
-
-        //dd($comandaExistente);
 
         if (empty($comandaExistente)) {
             $bool = false;
