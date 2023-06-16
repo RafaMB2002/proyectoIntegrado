@@ -33,7 +33,7 @@ security:
                 secret: '%kernel.secret%'
                 
     access_control:
-         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/admin, roles: ROLE_JEFE }
          - { path: ^/registro, roles: ROLE_JEFE }
          - { path: ^/comandas, roles: ROLE_CAMARERO }
          - { path: ^/comandas2, roles: ROLE_COMANDAS }

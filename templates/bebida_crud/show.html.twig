@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bebida{% endblock %}
+
+{% block body %}
+    <h1>Bebida</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ bebida.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ bebida.Nombre }}</td>
+            </tr>
+            <tr>
+                <th>Precio</th>
+                <td>{{ bebida.Precio }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ bebida.Descripcion }}</td>
+            </tr>
+            <tr>
+                <th>Stock</th>
+                <td>{{ bebida.Stock }}</td>
+            </tr>
+            <tr>
+                <th>StockMin</th>
+                <td>{{ bebida.StockMin }}</td>
+            </tr>
+            <tr>
+                <th>StockMax</th>
+                <td>{{ bebida.StockMax }}</td>
+            </tr>
+            <tr>
+                <th>Foto</th>
+                <td>{{ bebida.Foto }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bebida_crud_index') }}">back to list</a>
+
+    <a href="{{ path('app_bebida_crud_edit', {'id': bebida.id}) }}">edit</a>
+
+    {{ include('bebida_crud/_delete_form.html.twig') }}
+{% endblock %}

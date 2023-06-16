@@ -13,6 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TrabajadorController extends AbstractController
 {
+
+    /**
+     * Funcion para crear trabajadores
+     */
     #[Route('/trabajadores', name: 'new_trabajador', methods: 'POST')]
     public function createTrabajador(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
@@ -34,8 +38,11 @@ class TrabajadorController extends AbstractController
         return $this->json(['message' => 'Trabajador creado', 'id' => $trabajador->getId()]);
     }
 
+    /**
+     * Funcion para listar trabajadores
+     */
     #[Route('/trabajadores', name: 'get_all_trabajadores', methods: 'GET')]
-    public function listarTrabajadores(EntityManagerInterface $entityManager, TrabajadorRepository $trabajadorRepository): JsonResponse
+    public function listarTrabajadores(TrabajadorRepository $trabajadorRepository): JsonResponse
     {
         $trabajadores = $trabajadorRepository->findAll();
         $data = [];

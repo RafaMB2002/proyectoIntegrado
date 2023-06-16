@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bebida index{% endblock %}
+
+{% block body %}
+    <h1>Bebida index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Descripcion</th>
+                <th>Stock</th>
+                <th>StockMin</th>
+                <th>StockMax</th>
+                <th>Foto</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for bebida in bebidas %}
+            <tr>
+                <td>{{ bebida.id }}</td>
+                <td>{{ bebida.Nombre }}</td>
+                <td>{{ bebida.Precio }}</td>
+                <td>{{ bebida.Descripcion }}</td>
+                <td>{{ bebida.Stock }}</td>
+                <td>{{ bebida.StockMin }}</td>
+                <td>{{ bebida.StockMax }}</td>
+                <td>{{ bebida.Foto }}</td>
+                <td>
+                    <a href="{{ path('app_bebida_crud_show', {'id': bebida.id}) }}">show</a>
+                    <a href="{{ path('app_bebida_crud_edit', {'id': bebida.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_bebida_crud_new') }}">Create new</a>
+{% endblock %}
