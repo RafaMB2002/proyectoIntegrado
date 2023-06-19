@@ -61,7 +61,7 @@
 								</li>
 							{% endif %}
 
-							{% if app.request.uri != "http://127.0.0.1:8000/login" %}
+							{% if app.request.uri != "http://127.0.0.1:8000/login" or not app.user %}
 								<li class="nav-item px-lg-4">
 									<a class="nav-link text-uppercase" href="{{path('app_login')}}">Staff</a>
 								</li>

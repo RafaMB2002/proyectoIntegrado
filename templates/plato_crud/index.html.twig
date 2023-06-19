@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Plato index{% endblock %}
+
+{% block body %}
+    <h1>Plato index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>ValoresNutricionales</th>
+                <th>Alergenos</th>
+                <th>Precio</th>
+                <th>Tipo</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for plato in platos %}
+            <tr>
+                <td>{{ plato.id }}</td>
+                <td>{{ plato.Nombre }}</td>
+                <td>{{ plato.Descripcion }}</td>
+                <td>{{ plato.ValoresNutricionales }}</td>
+                <td>{{ plato.Alergenos }}</td>
+                <td>{{ plato.Precio }}</td>
+                <td>{{ plato.Tipo }}</td>
+                <td>
+                    <a href="{{ path('app_plato_crud_show', {'id': plato.id}) }}">show</a>
+                    <a href="{{ path('app_plato_crud_edit', {'id': plato.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_plato_crud_new') }}">Create new</a>
+{% endblock %}

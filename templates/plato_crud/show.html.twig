@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Plato{% endblock %}
+
+{% block body %}
+    <h1>Plato</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ plato.id }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ plato.Nombre }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ plato.Descripcion }}</td>
+            </tr>
+            <tr>
+                <th>ValoresNutricionales</th>
+                <td>{{ plato.ValoresNutricionales }}</td>
+            </tr>
+            <tr>
+                <th>Alergenos</th>
+                <td>{{ plato.Alergenos }}</td>
+            </tr>
+            <tr>
+                <th>Precio</th>
+                <td>{{ plato.Precio }}</td>
+            </tr>
+            <tr>
+                <th>Tipo</th>
+                <td>{{ plato.Tipo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_plato_crud_index') }}">back to list</a>
+
+    <a href="{{ path('app_plato_crud_edit', {'id': plato.id}) }}">edit</a>
+
+    {{ include('plato_crud/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Plato{% endblock %}
+
+{% block body %}
+    <h1>Create new Plato</h1>
+
+    {{ include('plato_crud/_form.html.twig') }}
+
+    <a href="{{ path('app_plato_crud_index') }}">back to list</a>
+{% endblock %}
