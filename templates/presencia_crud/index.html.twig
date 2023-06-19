@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Presencia index{% endblock %}
+
+{% block body %}
+    <h1>Presencia index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FechaHoraEntrada</th>
+                <th>FechaHoraSalida</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for presencium in presencias %}
+            <tr>
+                <td>{{ presencium.id }}</td>
+                <td>{{ presencium.FechaHoraEntrada ? presencium.FechaHoraEntrada|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ presencium.FechaHoraSalida ? presencium.FechaHoraSalida|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_presencia_crud_show', {'id': presencium.id}) }}">show</a>
+                    <a href="{{ path('app_presencia_crud_edit', {'id': presencium.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_presencia_crud_new') }}">Create new</a>
+{% endblock %}

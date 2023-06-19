@@ -8,7 +8,7 @@
 	<div class="container-pedidos">
 		<div class="container">
 			<h1>Carta Bar Piscina la Calle Nueva</h1>
-			<span id= "idDetalleComanda" style="display: none;">{{idDetalleComanda}}</span>
+			<span id="idDetalleComanda" style="display: none;">{{idDetalleComanda}}</span>
 
 			<div class="section-title">
 				<h2>Para picar</h2>
@@ -21,7 +21,12 @@
 										<h5 class="card-title">{{ plato.nombre }}</h5>
 										<p class="card-text">Precio:
 											{{ plato.precio }}€</p>
-										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% if plato.agotado %}
+											<div class="agotado-mark">Agotado</div>
+										{% endif %}
+										{% if not plato.agotado %}
+											<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% endif %}
 									</div>
 								</div>
 							</div>
@@ -41,7 +46,12 @@
 										<h5 class="card-title">{{ plato.nombre }}</h5>
 										<p class="card-text">Precio:
 											{{ plato.precio }}€</p>
-										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% if plato.agotado %}
+											<div class="agotado-mark">Agotado</div>
+										{% endif %}
+										{% if not plato.agotado %}
+											<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% endif %}
 									</div>
 								</div>
 							</div>
@@ -61,7 +71,12 @@
 										<h5 class="card-title">{{ plato.nombre }}</h5>
 										<p class="card-text">Precio:
 											{{ plato.precio }}€</p>
-										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% if plato.agotado %}
+											<div class="agotado-mark">Agotado</div>
+										{% endif %}
+										{% if not plato.agotado %}
+											<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% endif %}
 									</div>
 								</div>
 							</div>
@@ -81,7 +96,12 @@
 										<h5 class="card-title">{{ plato.nombre }}</h5>
 										<p class="card-text">Precio:
 											{{ plato.precio }}€</p>
-										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% if plato.agotado %}
+											<div class="agotado-mark">Agotado</div>
+										{% endif %}
+										{% if not plato.agotado %}
+											<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% endif %}
 									</div>
 								</div>
 							</div>
@@ -101,7 +121,12 @@
 										<h5 class="card-title">{{ plato.nombre }}</h5>
 										<p class="card-text">Precio:
 											{{ plato.precio }}€</p>
-										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% if plato.agotado %}
+											<div class="agotado-mark">Agotado</div>
+										{% endif %}
+										{% if not plato.agotado %}
+											<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% endif %}
 									</div>
 								</div>
 							</div>
@@ -121,7 +146,12 @@
 										<h5 class="card-title">{{ plato.nombre }}</h5>
 										<p class="card-text">Precio:
 											{{ plato.precio }}€</p>
-										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% if plato.agotado %}
+											<div class="agotado-mark">Agotado</div>
+										{% endif %}
+										{% if not plato.agotado %}
+											<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% endif %}
 									</div>
 								</div>
 							</div>
@@ -141,7 +171,12 @@
 										<h5 class="card-title">{{ plato.nombre }}</h5>
 										<p class="card-text">Precio:
 											{{ plato.precio }}€</p>
-										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% if plato.agotado %}
+											<div class="agotado-mark">Agotado</div>
+										{% endif %}
+										{% if not plato.agotado %}
+											<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% endif %}
 									</div>
 								</div>
 							</div>
@@ -161,7 +196,12 @@
 										<h5 class="card-title">{{ plato.nombre }}</h5>
 										<p class="card-text">Precio:
 											{{ plato.precio }}€</p>
-										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% if plato.agotado %}
+											<div class="agotado-mark">Agotado</div>
+										{% endif %}
+										{% if not plato.agotado %}
+											<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% endif %}
 									</div>
 								</div>
 							</div>
@@ -181,7 +221,12 @@
 										<h5 class="card-title">{{ plato.nombre }}</h5>
 										<p class="card-text">Precio:
 											{{ plato.precio }}€</p>
-										<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% if plato.agotado %}
+											<div class="agotado-mark">Agotado</div>
+										{% endif %}
+										{% if not plato.agotado %}
+											<button class="btn btn-primary add-to-cart-btn" data-id="{{ plato.id }}" data-nombre="{{ plato.nombre }}" data-precio="{{ plato.precio }}">+</button>
+										{% endif %}
 									</div>
 								</div>
 							</div>
@@ -202,7 +247,12 @@
 									<h5 class="card-title">{{ bebida.nombre }}</h5>
 									<p class="card-text">Precio:
 										{{ bebida.precio }}€</p>
-									<button class="btn btn-primary add-to-cart-btn" data-id="{{ bebida.id }}" data-nombre="{{ bebida.nombre }}" data-precio="{{ bebida.precio }}">+</button>
+									{% if bebida.agotado %}
+										<div class="agotado-mark">Agotado</div>
+									{% endif %}
+									{% if not bebida.agotado %}
+										<button class="btn btn-primary add-to-cart-btn" data-id="{{ bebida.id }}" data-nombre="{{ bebida.nombre }}" data-precio="{{ bebida.precio }}">+</button>
+									{% endif %}
 								</div>
 							</div>
 						</div>

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Presencia{% endblock %}
+
+{% block body %}
+    <h1>Presencia</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ presencium.id }}</td>
+            </tr>
+            <tr>
+                <th>FechaHoraEntrada</th>
+                <td>{{ presencium.FechaHoraEntrada ? presencium.FechaHoraEntrada|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>FechaHoraSalida</th>
+                <td>{{ presencium.FechaHoraSalida ? presencium.FechaHoraSalida|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_presencia_crud_index') }}">back to list</a>
+
+    <a href="{{ path('app_presencia_crud_edit', {'id': presencium.id}) }}">edit</a>
+
+    {{ include('presencia_crud/_delete_form.html.twig') }}
+{% endblock %}

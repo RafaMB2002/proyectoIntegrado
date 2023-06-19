@@ -37,6 +37,9 @@ class Plato
     #[ORM\OneToMany(mappedBy: 'plato', targetEntity: DetalleComandaPlato::class)]
     private Collection $DetalleComandaPlato;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $agotado = null;
+
     public function __construct()
     {
         $this->DetalleComandaPlato = new ArrayCollection();
@@ -145,6 +148,18 @@ class Plato
                 $detalleComandaPlato->setPlato(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isAgotado(): ?bool
+    {
+        return $this->agotado;
+    }
+
+    public function setAgotado(?bool $agotado): self
+    {
+        $this->agotado = $agotado;
 
         return $this;
     }

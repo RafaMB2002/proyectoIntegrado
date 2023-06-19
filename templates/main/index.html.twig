@@ -29,7 +29,7 @@
 							<a class="nav-link text-uppercase" href="{{path('app_sobre_nosotros')}}">Sobre nosotros</a>
 						</li>
 					{% endif %}
-					{% if app.request.uri != "http://127.0.0.1:8000/carta" %}
+					{% if app.request.uri != "http://127.0.0.1:8000/carta" and not app.user %}
 						<li class="nav-item px-lg-4">
 							<a class="nav-link text-uppercase" href="{{path('app_carta')}}">Carta</a>
 						</li>
@@ -53,11 +53,33 @@
 						</li>
 					{% endif %}
 					{% if app.user %}
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="comandasDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Agotar
+							</a>
+							<div class="dropdown-menu" aria-labelledby="comandasDropdown">
+								<a class="dropdown-item" href="{{path('app_agotar_platos')}}">Plato</a>
+								<a class="dropdown-item" href="{{path('app_agotar_bebidas')}}">Bebida</a>
+							</div>
+						</li>
+					{% endif %}
+					{% if app.user %}
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="comandasDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Fichaje
+							</a>
+							<div class="dropdown-menu" aria-labelledby="comandasDropdown">
+								<a class="dropdown-item" href="{{path('app_presencia')}}">Fichar</a>
+								<a class="dropdown-item" href="{{path('app_registro_horas')}}">Registro</a>
+							</div>
+						</li>
+					{% endif %}
+					{% if app.user %}
 						<li class="nav-item px-lg-4">
 							<a class="nav-link text-uppercase" href="{{path('generarQR')}}">Generar QR</a>
 						</li>
 					{% endif %}
-					{% if app.user %}
+					{% if app.user and app.user.roles[0] == 'ROLE_JEFE' %}
 						<li class="nav-item px-lg-4">
 							<a class="nav-link text-uppercase" href="/admin">Admin</a>
 						</li>

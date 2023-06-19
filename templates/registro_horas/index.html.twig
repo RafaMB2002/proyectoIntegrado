@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello RegistroHorasController!
+{% endblock %}
+
+{% block body %}
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Fecha</th>
+					<th>Horas</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for presencia in presencias %}
+					<tr>
+						<td>{{ presencia.user.nombre }}
+							{{ presencia.user.apellidos }}</td>
+						<td>{{ presencia.fechaHoraEntrada|date('d/m/Y') }}</td>
+						<td>
+							{% if presencia.fechaHoraSalida is not null %}
+								{% set horasTrabajadas = presencia.fechaHoraSalida.diff(presencia.fechaHoraEntrada).format('%H:%I:%S') %}
+								{{ horasTrabajadas }}
+							{% else %}
+								Horas no registradas
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}

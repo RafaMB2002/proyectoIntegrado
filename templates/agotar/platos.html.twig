@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}agotar platos
+{% endblock %}
+
+{% block javascripts %}
+			<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+			<script src="{{asset('build/js/qr.js')}}"></script>
+			<script src="{{asset('build/js/pedidos.js')}}"></script>
+			<script src="{{asset('build/js/presencia.js')}}"></script>
+			<script src="{{asset('build/js/sobreNosotros.js')}}"></script>
+			<script src="{{asset('build/js/landingPage.js')}}"></script>
+			<script src="{{asset('build/js/agotarPlatos.js')}}"></script>
+		{% endblock %}
+
+{% block body %}
+	<div class="container-agotar-platos">
+		<h1>Listado de Platos</h1>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Nombre del Plato</th>
+					<th>Disponibilidad</th>
+				</tr>
+			</thead>
+			<tbody id="platos-list">
+				{% for plato in platos %}
+					<tr>
+						<td>{{ plato.nombre }}</td>
+						<td>
+							<button {% if not plato.agotado %} class="btn btn-sm btn-primary btn-disponibilidad" {% else %} class="btn btn-sm btn-danger btn-disponibilidad" {% endif %} data-id="{{ plato.id }}" data-agotado="{{ plato.agotado ? 1 : 0 }}">
+								{% if plato.agotado %}
+									Agotado
+								{% else %}
+									Disponible
+								{% endif %}
+							</button>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

@@ -40,9 +40,13 @@ class Bebida
     #[ORM\OneToMany(mappedBy: 'bebida', targetEntity: DetalleComandaBebida::class)]
     private Collection $DetalleComandaBebida;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $agotado = null;
+
     public function __construct()
     {
         $this->DetalleComandaBebida = new ArrayCollection();
+        $this->agotado = false;
     }
 
     public function getId(): ?int
@@ -160,6 +164,18 @@ class Bebida
                 $detalleComandaBebida->setBebida(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isAgotado(): ?bool
+    {
+        return $this->agotado;
+    }
+
+    public function setAgotado(?bool $agotado): static
+    {
+        $this->agotado = $agotado;
 
         return $this;
     }
