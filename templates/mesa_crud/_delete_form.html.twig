@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_mesa_crud_delete', {'id': mesa.id}) }}" onsubmit="return confirm('Estas seguro de que quieres eliminar este elemento?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ mesa.id) }}">
+    <button class="btn">Delete</button>
+</form>

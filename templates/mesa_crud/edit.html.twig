@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Mesa{% endblock %}
+
+{% block body %}
+    <h1>Edit Mesa</h1>
+
+    {{ include('mesa_crud/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_mesa_crud_index') }}">back to list</a>
+
+    {{ include('mesa_crud/_delete_form.html.twig') }}
+{% endblock %}

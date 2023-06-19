@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Bebida;
+use App\Entity\Mesa;
 use App\Entity\Plato;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -51,9 +52,10 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         //yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        //yield MenuItem::linkToCrud('Bebida', 'fas fa-list', Bebida::class);
+        yield MenuItem::linkToUrl('Inicio','fa fa-home','/');
         yield MenuItem::linkToCrud('Usuario', 'fa-sharp fa-solid fa-users', User::class);
         yield MenuItem::linkToCrud('Bebida', 'fa-sharp fa-solid', Bebida::class);
         yield MenuItem::linkToCrud('Plato', 'fa-sharp fa-solid', Plato::class);
+        yield MenuItem::linkToCrud('Mesa', 'fa-sharp fa-solid', Mesa::class);
     }
 }

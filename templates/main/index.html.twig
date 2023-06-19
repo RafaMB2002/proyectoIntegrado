@@ -41,23 +41,25 @@
 						</li>
 					{% endif %}
 					{% if app.user %}
-						<li class="nav-item px-lg-4">
-							<a class="nav-link text-uppercase" href="{{path('comandas_cocina')}}">Comandas cocina</a>
-						</li>
-					{% endif %}
-					{% if app.user %}
-						<li class="nav-item px-lg-4">
-							<a class="nav-link text-uppercase" href="{{path('comandas_camarero')}}">Comandas camarero</a>
-						</li>
-					{% endif %}
-					{% if app.user %}
-						<li class="nav-item px-lg-4">
-							<a class="nav-link text-uppercase" href="{{path('finalizarComanda')}}">finalizar comandas</a>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="comandasDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Comandas
+							</a>
+							<div class="dropdown-menu" aria-labelledby="comandasDropdown">
+								<a class="dropdown-item" href="{{path('comandas_cocina')}}">Cocina</a>
+								<a class="dropdown-item" href="{{path('comandas_camarero')}}">Camarero</a>
+								<a class="dropdown-item" href="{{path('finalizarComanda')}}">Finalizar</a>
+							</div>
 						</li>
 					{% endif %}
 					{% if app.user %}
 						<li class="nav-item px-lg-4">
 							<a class="nav-link text-uppercase" href="{{path('generarQR')}}">Generar QR</a>
+						</li>
+					{% endif %}
+					{% if app.user %}
+						<li class="nav-item px-lg-4">
+							<a class="nav-link text-uppercase" href="/admin">Admin</a>
 						</li>
 					{% endif %}
 					{% if app.user %}

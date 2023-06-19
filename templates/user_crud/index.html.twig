@@ -29,17 +29,17 @@
                 <td>{{ user.nombre }}</td>
                 <td>{{ user.apellidos }}</td>
                 <td>
-                    <a href="{{ path('app_user_crud_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_crud_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('app_user_crud_show', {'id': user.id}) }}">Mostrar</a>
+                    <a href="{{ path('app_user_crud_edit', {'id': user.id}) }}">Editar</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">No se encontraron registros</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_crud_new') }}">Create new</a>
+    <a href="{{ path('app_user_crud_new') }}">Crear nuevo</a>
 {% endblock %}

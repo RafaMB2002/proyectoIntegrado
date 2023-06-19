@@ -4,6 +4,20 @@
 	Cancelar comanda
 {% endblock %}
 
+{% block javascripts %}
+			<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
+			<script src="{{asset('build/js/leaflet.js')}}"></script>
+			<script src="{{asset('build/js/qr.js')}}"></script>
+			<script src="{{asset('build/js/pedidos.js')}}"></script>
+			<script src="{{asset('build/js/finalizarComanda.js')}}"></script>
+			<script src="{{asset('build/js/presencia.js')}}"></script>
+			<script src="{{asset('build/js/sobreNosotros.js')}}"></script>
+			<script src="{{asset('build/js/landingPage.js')}}"></script>
+		{% endblock %}
+
 {% block body %}
 	<!-- list.html.twig -->
 	<div class="container">

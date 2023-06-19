@@ -25,16 +25,16 @@ class Bebida
     #[ORM\Column(type: Types::TEXT)]
     private ?string $Descripcion = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?int $Stock = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?int $StockMin = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable:true)]
     private ?int $StockMax = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable:true)]
     private ?string $Foto = null;
 
     #[ORM\OneToMany(mappedBy: 'bebida', targetEntity: DetalleComandaBebida::class)]

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mesa index{% endblock %}
+
+{% block body %}
+    <h1>Mesa index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mesa in mesas %}
+            <tr>
+                <td>{{ mesa.id }}</td>
+                <td>
+                    <a href="{{ path('app_mesa_crud_show', {'id': mesa.id}) }}">show</a>
+                    <a href="{{ path('app_mesa_crud_edit', {'id': mesa.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_mesa_crud_new') }}">Create new</a>
+{% endblock %}

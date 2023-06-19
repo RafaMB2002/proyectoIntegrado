@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PruebasController!
+{% endblock %}
+
+
+{% block body %}
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle" href="#" id="comandasDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Comandas
+		</a>
+		<div class="dropdown-menu" aria-labelledby="comandasDropdown">
+			<a class="dropdown-item" href="#">Opción 1</a>
+			<a class="dropdown-item" href="#">Opción 2</a>
+			<a class="dropdown-item" href="#">Opción 3</a>
+			<!-- Agrega más opciones según tus necesidades -->
+		</div>
+	</li>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+{% endblock %}

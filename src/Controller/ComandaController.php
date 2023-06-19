@@ -73,7 +73,6 @@ class ComandaController extends AbstractController
     public function comandaExist($idMesa)
     {
         $bool = true;
-
         $comandaExistente = $this->comandaRepository->createQueryBuilder('c')
             ->join('c.Mesa', 'm')
             ->where('m.id = :mesaId')
@@ -105,7 +104,8 @@ class ComandaController extends AbstractController
 
         $hora_actual = DateTime::createFromFormat('d-m-Y H:i:s', date('d-m-Y H:i:s'));
 
-        if ($this->comandaExist($hora_actual, $idMesa)) {
+        //dd($this->comandaExist($hora_actual, $idMesa));
+        if ($this->comandaExist($idMesa)) {
             return $this->json(['ocupado' => 1]);
         } else {
             $comanda->setFechaHoraInicio($hora_actual)

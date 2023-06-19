@@ -18,6 +18,9 @@ class Mesa
     #[ORM\OneToMany(mappedBy: 'Mesa', targetEntity: Comanda::class)]
     private Collection $comandas;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $Comensales = null;
+
     public function __construct()
     {
         $this->comandas = new ArrayCollection();
@@ -54,6 +57,18 @@ class Mesa
                 $comanda->setMesa(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getComensales(): ?int
+    {
+        return $this->Comensales;
+    }
+
+    public function setComensales(?int $Comensales): static
+    {
+        $this->Comensales = $Comensales;
 
         return $this;
     }

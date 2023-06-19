@@ -22,10 +22,10 @@ class Plato
     #[ORM\Column(type: Types::TEXT)]
     private ?string $Descripcion = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable:true)]
     private ?string $ValoresNutricionales = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable:true)]
     private ?string $Alergenos = null;
 
     #[ORM\Column]

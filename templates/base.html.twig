@@ -11,7 +11,6 @@
 		rel="icon" type="image/x-icon" href="{{asset('images/favicon.ico')}}">
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
 		{% block stylesheets %}
-			{# {{ encore_entry_link_tags('app') }} #}
 			<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 			<link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"/>
 			<link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet"/>
@@ -21,16 +20,14 @@
 
 		{% block javascripts %}
 			<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
-			<script src="{{asset('build/js/leaflet.js')}}"></script>
 			<script src="{{asset('build/js/qr.js')}}"></script>
 			<script src="{{asset('build/js/pedidos.js')}}"></script>
-			<script src="{{asset('build/js/finalizarComanda.js')}}"></script>
 			<script src="{{asset('build/js/presencia.js')}}"></script>
 			<script src="{{asset('build/js/sobreNosotros.js')}}"></script>
+			<script src="{{asset('build/js/landingPage.js')}}"></script>
 		{% endblock %}
 	</head>
 	<body>
@@ -52,7 +49,7 @@
 							{% endif %}
 							{% if not app.user %}
 								<li class="nav-item px-lg-4">
-									<a class="nav-link text-uppercase" href="about.html">Sobre nosotros</a>
+									<a class="nav-link text-uppercase" href="{{path('app_sobre_nosotros')}}">Sobre nosotros</a>
 								</li>
 							{% endif %}
 							{% if app.request.uri != "http://127.0.0.1:8000/carta" %}
@@ -67,23 +64,25 @@
 								</li>
 							{% endif %}
 							{% if app.user %}
-								<li class="nav-item px-lg-4">
-									<a class="nav-link text-uppercase" href="{{path('comandas_cocina')}}">Comandas cocina</a>
-								</li>
-							{% endif %}
-							{% if app.user %}
-								<li class="nav-item px-lg-4">
-									<a class="nav-link text-uppercase" href="{{path('comandas_camarero')}}">Comandas camarero</a>
-								</li>
-							{% endif %}
-							{% if app.user %}
-								<li class="nav-item px-lg-4">
-									<a class="nav-link text-uppercase" href="{{path('finalizarComanda')}}">finalizar comandas</a>
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" id="comandasDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Comandas
+									</a>
+									<div class="dropdown-menu" aria-labelledby="comandasDropdown">
+										<a class="dropdown-item" href="{{path('comandas_cocina')}}">Cocina</a>
+										<a class="dropdown-item" href="{{path('comandas_camarero')}}">Camarero</a>
+										<a class="dropdown-item" href="{{path('finalizarComanda')}}">Finalizar</a>
+									</div>
 								</li>
 							{% endif %}
 							{% if app.user %}
 								<li class="nav-item px-lg-4">
 									<a class="nav-link text-uppercase" href="{{path('generarQR')}}">Generar QR</a>
+								</li>
+							{% endif %}
+							{% if app.user %}
+								<li class="nav-item px-lg-4">
+									<a class="nav-link text-uppercase" href="/admin">Admin</a>
 								</li>
 							{% endif %}
 							{% if app.user %}
